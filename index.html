@@ -440,7 +440,7 @@
       <img src="ivanmoraes.jpg" class="cand-foto" alt="Ivan Moraes" onerror="this.src='https://via.placeholder.com/38?text=IM'">
       <div class="cand-details">
         <span class="cand-nome">Ivan Moraes</span>
-        <span class="cand-tag tag-pending">Aguardando</span>
+        <span class="cand-tag tag-active">254 Propostas</span>
       </div>
     </div>
   </div>
@@ -448,7 +448,7 @@
   <!-- Abas de Navegação -->
   <div class="nav-tabs">
     <button class="tab-btn active" onclick="switchTab('overview')" id="tab-overview">📊 Visão Geral & Gráficos</button>
-    <button class="tab-btn" onclick="switchTab('propostas')" id="tab-propostas">🔍 Todas as Propostas (178)</button>
+    <button class="tab-btn" onclick="switchTab('propostas')" id="tab-propostas">🔍 Todas as Propostas</button>
   </div>
 
   <!-- Área Principal -->
@@ -462,7 +462,7 @@
 </div>
 
 <script>
-  // TODAS AS 178 PROPOSTAS REAIS IMPORTADAS DO NOVO PLANO EXCEL
+  // 178 PROPOSTAS DE JOÃO CAMPOS
   const DATA_JOAO = [
     {"id": 1, "eixo": "1. Desenv. Social", "nicho": "Geral / Extrema Pobreza", "texto": "Ampliar a rede socioassistencial e capacitar municípios no acolhimento de famílias em extrema pobreza.", "meta": "Articulação de rede e fortalecimento de municípios"},
     {"id": 2, "eixo": "1. Desenv. Social", "nicho": "Vulneráveis / Trabalho", "texto": "Fomentar estratégias de promoção da autonomia através de educação qualificada, trabalho digno e sustentabilidade.", "meta": "Foco em emancipação e geração de autonomia"},
@@ -658,6 +658,278 @@
     {"id": 178, "eixo": "15. Gestão Integrada", "nicho": "Regionalização", "texto": "Criar fóruns regionais de pactuação com prefeitos para execução integrada de obras estaduais.", "meta": "Gestão descentralizada perto do cidadão"}
   ];
 
+  // 254 PROPOSTAS DE IVAN MORAES
+  const DATA_IVAN = [
+    {"id": 1, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Geral / Usuários do SUS", "texto": "Universalizar a atenção básica de saúde nos municípios do estado de Pernambuco.", "meta": "Cofinanciamento e apoio municipal estratégico"},
+    {"id": 2, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Profissionais de Saúde", "texto": "Investir na formação de médicos, enfermeiras, dentistas, agentes de saúde, etc., com telessaúde e diagnóstico.", "meta": "Em parceria com o Programa 'Agora Tem' federal"},
+    {"id": 3, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Geral", "texto": "Reduzir o tempo de espera no SUS para exames, cirurgias e consultas especializadas.", "meta": "Redução do tempo de espera"},
+    {"id": 4, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Gestantes / Puérperas", "texto": "Qualificar o pré-natal, garantir parto humanizado e reduzir a mortalidade materna e infantil.", "meta": "Redução da mortalidade materna e infantil"},
+    {"id": 5, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Mulheres Vítimas de Violência", "texto": "Criar o Programa Estadual de Saúde Integral para Mulheres em Situação de Violência.", "meta": "Programa estadual intersetorial com rede assistencial"},
+    {"id": 6, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Servidores do SUS", "texto": "Fortalecer a carreira do SUS no estado de Pernambuco com concurso público continuado.", "meta": "Recomposição do quadro de pessoal via concurso"},
+    {"id": 7, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Trabalhadores da Saúde", "texto": "Garantir o pagamento do piso salarial da enfermagem e agentes de saúde sem atrasos.", "meta": "Cumprimento e repasse rigoroso do piso nacional"},
+    {"id": 8, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Usuários de Medicamentos", "texto": "Garantir o abastecimento regular da Farmácia do Estado e simplificar o acesso a remédios excepcionais.", "meta": "Zero desabastecimento de remédios de alto custo"},
+    {"id": 9, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Saúde Mental / Caps", "texto": "Fortalecer a Rede de Atenção Psicossocial (RAPS) expandindo os CAPS III e IV com funcionamento 24h.", "meta": "Ampliação da rede de acolhimento antimanicomial"},
+    {"id": 10, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Usuários de Substâncias", "texto": "Adotar a Redução de Danos como política pública oficial de estado no cuidado com usuários de drogas.", "meta": "Substituição da lógica punitiva por equipes de redução de danos"},
+    {"id": 11, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Pacientes Medicina Cânnabis", "texto": "Garantir o fornecimento de cannabis medicinal e produtos derivados pelo SUS estadual.", "meta": "Distribuição gratuita via SUS e apoio a pesquisas"},
+    {"id": 12, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Pessoas em Crise Mental", "texto": "Criar equipes de abordagem em crise mental sem o uso de força policial ou coerção.", "meta": "Atendimento humanizado pré-hospitalar e psiquiátrico"},
+    {"id": 13, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "População Periférica", "texto": "Descentralizar as UPAEs e os centros de diagnóstico para todas as macrorregiões do interior.", "meta": "Regionalização do acesso à saúde especializada"},
+    {"id": 14, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Trabalhadores e Usuários", "texto": "Reativar e fortalecer os Conselhos Estaduais e Municipais de Saúde com gestão participativa.", "meta": "Controle social e orçamentário deliberativo"},
+    {"id": 15, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Saúde Reprodutiva", "texto": "Garantir o direito ao aborto legal e seguro nos hospitais estaduais e maternidades da rede pública.", "meta": "Atendimento acolhedor e sem estigma nos casos previstos em lei"},
+    {"id": 16, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Saúde Bucal", "texto": "Expandir o atendimento odontológico especializado com consultórios móveis nos morros e periferias.", "meta": "Saúde bucal gratuita em áreas de vulnerabilidade"},
+    {"id": 17, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "População Trans", "texto": "Fortalecer e regionalizar o Processo Transexualizador no SUS com apoio multiprofissional.", "meta": "Descentralização do ambulatório trans para o interior"},
+    {"id": 18, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Comunidades Rurais", "texto": "Criar as Unidades Itinerantes de Saúde da Família Rural com barco-consulta e vans equipadas.", "meta": "Atendimento de saúde regular para áreas isoladas"},
+    {"id": 19, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "População Negra", "texto": "Implementar a Política Nacional de Saúde Integral da População Negra com diagnóstico de anemia falciforme.", "meta": "Ações direcionadas a agravos específicos"},
+    {"id": 20, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Idosos e Crônicos", "texto": "Implantar o Programa Estadual de Cuidado Domiciliar (Home Care) com fisioterapia e enfermagem.", "meta": "Assistência em casa para acamados"},
+    {"id": 21, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Pessoas Autistas", "texto": "Criar centros estaduais de referência interdisciplinar no atendimento de autistas e neurodivergentes.", "meta": "Terapias ocupacionais, fonoaudiologia e suporte familiar"},
+    {"id": 22, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Vigilância em Saúde", "texto": "Fortalecer a vigilância epidemiológica e sanitária no controle de zoonoses e endemias.", "meta": "Combate preventivo a epidemias e arboviroses"},
+    {"id": 23, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Trabalhadores da Saúde", "texto": "Combater o assédio moral e o burnout entre os profissionais da rede pública de saúde.", "meta": "Programas estaduais de saúde do trabalhador do SUS"},
+    {"id": 24, "eixo": "1. Saúde e Políticas de Drogas", "nicho": "Hospitais Regionais", "texto": "Reforma urgente e ampliação de leitos de UTI nos hospitais estaduais do Agreste e Sertão.", "meta": "Modernização de infraestrutura hospitalar pública"},
+
+    {"id": 25, "eixo": "2. Economia", "nicho": "Trabalhadores / Geral", "texto": "Gerar empregos com trabalho digno, transição ecológica e fortalecimento da economia popular.", "meta": "Plano estadual de desenvolvimento sustentável"},
+    {"id": 26, "eixo": "2. Economia", "nicho": "Agricultura Familiar", "texto": "Fomentar a transição agroecológica com compra direta da agricultura familiar pelo Estado.", "meta": "Incentivo à produção orgânica sem agrotóxicos"},
+    {"id": 27, "eixo": "2. Economia", "nicho": "Micro e Pequenos Empreendedores", "texto": "Criar a Agência Estadual de Economia Solidária com crédito desburocratizado e juro zero.", "meta": "Acesso a microcrédito orientado"},
+    {"id": 28, "eixo": "2. Economia", "nicho": "Economia Popular / Feirantes", "texto": "Requalificar mercados públicos, feiras livres e polos de artesanato comunitário.", "meta": "Infraestrutura e isenção de taxas para feirantes tradicionais"},
+    {"id": 29, "eixo": "2. Economia", "nicho": "Juventude Trabalhadora", "texto": "Lançar o Programa Primeiro Emprego Cidadão com formação técnica e auxílio financeiro.", "meta": "Inclusão de jovens no mercado formal de trabalho"},
+    {"id": 30, "eixo": "2. Economia", "nicho": "Catadores de Recicláveis", "texto": "Remunerar associações e cooperativas de catadores de materiais recicláveis pelos serviços ambientais prestados.", "meta": "Pagamento por serviços ambientais e galpões equipados"},
+    {"id": 31, "eixo": "2. Economia", "nicho": "Trabalhadores de Aplicativo", "texto": "Regulamentar pontos de descanso com água, sanitários e recarga de celular em todos os municípios polos.", "meta": "Infraestrutura pública obrigatória para entregadores"},
+    {"id": 32, "eixo": "2. Economia", "nicho": "Mulheres Empreendedoras", "texto": "Criar o Fundo Estadual de Apoio às Mulheres Empreendedoras periféricas e chefes de família.", "meta": "Crédito subsidiado e formação em gestão"},
+    {"id": 33, "eixo": "2. Economia", "nicho": "Polo Têxtil do Agreste", "texto": "Apoiar a modernização sustentável do Polo de Confecções do Agreste com reciclagem têxtil e tratamento de efluentes.", "meta": "Sustentabilidade ecológica e qualificação produtiva"},
+    {"id": 34, "eixo": "2. Economia", "nicho": "Turismo Comunitário", "texto": "Incentivar o turismo de base comunitária nas favelas, territórios quilombolas e praias nativas.", "meta": "Geração de renda direta para os moradores locais"},
+    {"id": 35, "eixo": "2. Economia", "nicho": "Pesca Artesanal", "texto": "Criar linhas de fomento e seguro-defeso suplementar para marisqueiras e pescadores artesanais.", "meta": "Proteção à cultura e subsistência pesqueira tradicional"},
+    {"id": 36, "eixo": "2. Economia", "nicho": "Servidores Públicos", "texto": "Combater a precarização do trabalho no setor público eliminando contratos temporários ilegais.", "meta": "Realização regular de concursos públicos"},
+    {"id": 37, "eixo": "2. Economia", "nicho": "Indústria Verde", "texto": "Conceder incentivos fiscais vinculados a metas de descarbonização e contratação de mão de obra local.", "meta": "Condicionantes ambientais para incentivos estaduais"},
+    {"id": 38, "eixo": "2. Economia", "nicho": "Energia Limpa", "texto": "Fomentar a criação de cooperativas comunitárias de energia solar em bairros de periferia.", "meta": "Autonomia energética e redução do custo de vida"},
+    {"id": 39, "eixo": "2. Economia", "nicho": "Consumidores / Compesa", "texto": "Cobrar tarifa social justa de água e esgoto e proibir cortes de água em áreas de vulnerabilidade.", "meta": "Garantia do direito humano à água potável"},
+    {"id": 40, "eixo": "2. Economia", "nicho": "Inovação Popular", "texto": "Implantar FabLabs e incubadoras de tecnologia aberta e periférica nas grandes comunidades.", "meta": "Inovação tecnológica voltada a problemas comunitários"},
+    {"id": 41, "eixo": "2. Economia", "nicho": "Comércio de Bairro", "texto": "Promover feiras gastronômicas e culturais nos bairros para movimentar a economia local.", "meta": "Valorização do comércio e cultura dos morros"},
+    {"id": 42, "eixo": "2. Economia", "nicho": "Trabalhadores Rurais", "texto": "Fortalecer o Programa Chapéu de Palha estendendo o benefício a novas categorias da agricultura familiar.", "meta": "Ampliação do amparo social na entressafra"},
+    {"id": 43, "eixo": "2. Economia", "nicho": "Empresas Responsáveis", "texto": "Criar o Selo Estadual de Combate ao Trabalho Análogo à Escravidão e à Discriminação.", "meta": "Fiscalização e punição a empresas infratoras"},
+    {"id": 44, "eixo": "2. Economia", "nicho": "Artesanato Tradicional", "texto": "Garantir espaço gratuito para artesãos locais em feiras internacionais e eventos oficiais estaduais.", "meta": "Comercialização direta sem intermediários"},
+
+    {"id": 45, "eixo": "3. Segurança Pública", "nicho": "Geral / Periferias", "texto": "Promover a desmilitarização e a reformulação da política de segurança focado na garantia de direitos.", "meta": "Substituição do modelo bélico pelo policiamento cidadão"},
+    {"id": 46, "eixo": "3. Segurança Pública", "nicho": "Jovens Negros", "texto": "Acabar com o perfilamento racial e a violência policial direcionada à juventude negra das periferias.", "meta": "Protocolos rígidos de abordagem baseados na lei"},
+    {"id": 47, "eixo": "3. Segurança Pública", "nicho": "Servidores Policiais", "texto": "Instalar câmeras corporais (bodycams) em todos os policiais militares e civis em operação.", "meta": "Câmeras em 100% do efetivo ostensivo para proteção mútua"},
+    {"id": 48, "eixo": "3. Segurança Pública", "nicho": "Comunidades", "texto": "Criar Conselhos Comunitários de Segurança deliberativos com participação ativa dos moradores.", "meta": "Gestão comunitária e transparente da segurança pública"},
+    {"id": 49, "eixo": "3. Segurança Pública", "nicho": "Vitimas de Violência", "texto": "Aprimorar a inteligência policial e o índice de resolução de homicídios pela Polícia Civil.", "meta": "Foco em investigação e combate à impunidade"},
+    {"id": 50, "eixo": "3. Segurança Pública", "nicho": "Mulheres Vítimas", "texto": "Expandir as Delegacias Especializadas de Atendimento à Mulher (DEAM) com funcionamento 24h em todas as regiões.", "meta": "Funcionamento ininterrupto das DEAMs no interior"},
+    {"id": 51, "eixo": "3. Segurança Pública", "nicho": "Policiais Civis e Militares", "texto": "Garantir apoio psicológico permanente e programa de saúde mental para o efetivo de segurança pública.", "meta": "Acompanhamento emocional e redução do suicídio policial"},
+    {"id": 52, "eixo": "3. Segurança Pública", "nicho": "População Prisional", "texto": "Combater o superencarceramento e criar frentes de trabalho e estudo no sistema penitenciário.", "meta": "Ressocialização humanizada e revisão de penas de pequeno porte"},
+    {"id": 53, "eixo": "3. Segurança Pública", "nicho": "População LGBTQIAPN+", "texto": "Criar a Delegacia de Combate aos Crimes de Intolerância e LGBTQIAfobia com abrangência estadual.", "meta": "Investigação qualificada de crimes de ódio"},
+    {"id": 54, "eixo": "3. Segurança Pública", "nicho": "Moradores de Morros", "texto": "Proibir o uso de helicópteros como plataforma de tiro em áreas habitadas e densamente povoadas.", "meta": "Fim dos disparos aéreos em favelas"},
+    {"id": 55, "eixo": "3. Segurança Pública", "nicho": "Jovens em Risco", "texto": "Investir em iluminação pública, urbanização e equipamentos de lazer nos territórios de maior vulnerabilidade.", "meta": "Prevenção primária da violência através da cidadania"},
+    {"id": 56, "eixo": "3. Segurança Pública", "nicho": "Policiais Civis e Científicos", "texto": "Modernizar a perícia técnica e o Instituto de Medicina Legal (IML) descentralizando os postos.", "meta": "Agilidade nas perícias criminais no interior"},
+    {"id": 57, "eixo": "3. Segurança Pública", "nicho": "Atingidos pela Violência", "texto": "Criar o Fundo Estadual de Amparo às Mães e Familiares de Vítimas da Violência de Estado.", "meta": "Indenização rápida e suporte psicológico às mães de vítimas"},
+    {"id": 58, "eixo": "3. Segurança Pública", "nicho": "Organizações Criminosas", "texto": "Focar a inteligência policial na desarticulação das rotas de tráfico de armas e lavagem de dinheiro.", "meta": "Combate aos grandes financiadores do crime"},
+    {"id": 59, "eixo": "3. Segurança Pública", "nicho": "Manifestantes e Movimentos", "texto": "Garantir o direito de manifestação proibindo o uso de armas de elastômero (balas de borracha) em protestos.", "meta": "Proibição de munição menos-letal de alto impacto em atos públicos"},
+    {"id": 60, "eixo": "3. Segurança Pública", "nicho": "Guarda Municipal", "texto": "Apoiar a formação em direitos humanos e mediação de conflitos para as Guardas Municipais.", "meta": "Capacitação cidadã para guardas municipais"},
+    {"id": 61, "eixo": "3. Segurança Pública", "nicho": "Adolescentes em Conflito com a Lei", "texto": "Reestruturar o FUNASE focado em medidas socioeducativas em meio aberto e oficinas profissionais.", "meta": "Humanização do atendimento socioeducativo"},
+    {"id": 62, "eixo": "3. Segurança Pública", "nicho": "Pessoas Prsidiárias", "texto": "Garantir visitação familiar digna e acesso à água e alimentação de qualidade nas prisões.", "meta": "Fim do tratamento desumano e degradação nas unidades prisionais"},
+    {"id": 63, "eixo": "3. Segurança Pública", "nicho": "Servidores de Segurança", "texto": "Acabar com as sanções disciplinares arbitrárias e garantir a liberdade de expressão dos policiais.", "meta": "Direito à associação e manifestação sem punição política"},
+    {"id": 64, "eixo": "3. Segurança Pública", "nicho": "Mulheres Policiais", "texto": "Criar a Ouvidoria de Combate ao Assédio Sexual e Moral dentro das corporações policiais.", "meta": "Proteção às agentes femininas na segurança"},
+    {"id": 65, "eixo": "3. Segurança Pública", "nicho": "População de Rua", "texto": "Proibir o recolhimento forçado de pertences de pessoas em situação de rua por forças de segurança.", "meta": "Respeito à dignidade da pessoa humana"},
+    {"id": 66, "eixo": "3. Segurança Pública", "nicho": "Lideranças Comunitárias", "texto": "Fortalecer o Programa de Proteção aos Defensores dos Direitos Humanos (PPDDH).", "meta": "Garantia de vida a ativistas sob ameaça"},
+    {"id": 67, "eixo": "3. Segurança Pública", "nicho": "Trânsito e Mobilidade", "texto": "Implantar ações educativas para redução de mortes no trânsito envolvendo motociclistas.", "meta": "Redução da mortalidade em acidentes de moto"},
+    {"id": 68, "eixo": "3. Segurança Pública", "nicho": "Avanço Tecnológico", "texto": "Substituir o reconhecimento facial discriminatório por investimento em perícia criminal laboratorial.", "meta": "Fim dos falsos positivos que prendem inocentes negros"},
+    {"id": 69, "eixo": "3. Segurança Pública", "nicho": "Cultura de Paz", "texto": "Criar o Programa Estadual de Mediação Comunitária de Conflitos nos bairros populares.", "meta": "Resolução pacífica de litígios de vizinhança"},
+    {"id": 70, "eixo": "3. Segurança Pública", "nicho": "Comunidades Rurais", "texto": "Instalar a Patrulha Rural Comunitária integrada a assentamentos e pequenos agricultores.", "meta": "Segurança preventiva na zona rural"},
+    {"id": 71, "eixo": "3. Segurança Pública", "nicho": "Estudantes", "texto": "Garantir ronda escolar comunitária e preventiva nos horários de entrada e saída.", "meta": "Entorno escolar seguro sem repressão aos estudantes"},
+    {"id": 72, "eixo": "3. Segurança Pública", "nicho": "Povos Tradicionais", "texto": "Garantir proteção especial para territórios indígenas e quilombolas sob disputa fundiária.", "meta": "Combate às invasões e violência no campo"},
+    {"id": 73, "eixo": "3. Segurança Pública", "nicho": "Egressos do Sistema Prisional", "texto": "Criar o Programa Estadual de Reinserção Social com oportunidade de trabalho em obras do Estado.", "meta": "Reserva de 5% de vagas em contratos públicos para egressos"},
+    {"id": 74, "eixo": "3. Segurança Pública", "nicho": "Sistemas de Informação", "texto": "Dar transparência total aos dados de criminalidade e letalidade policial com atualização mensal.", "meta": "Dados abertos para fiscalização da sociedade civil"},
+    {"id": 75, "eixo": "3. Segurança Pública", "nicho": "Proteção aos Animais", "texto": "Criar a Delegacia Especializada de Combate aos Maus-Tratos contra Animais.", "meta": "Combate a abusos e crueldade contra cães, gatos e equinos"},
+    {"id": 76, "eixo": "3. Segurança Pública", "nicho": "Segurança no Transporte", "texto": "Instalar botões de pânico conectados à central de emergência nos ônibus intermunicipais.", "meta": "Prevenção a assaltos no transporte público"},
+    {"id": 77, "eixo": "3. Segurança Pública", "nicho": "Polícia Militar", "texto": "Reestruturar o plano de cargos e carreiras com reajuste salarial justo e valorização.", "meta": "Valorização da base da corporação"},
+    {"id": 78, "eixo": "3. Segurança Pública", "nicho": "Polícia Civil", "texto": "Realizar concurso público para escrivães, delegados e agentes para suprir o déficit de 40%.", "meta": "Recomposição urgente do efetivo policial civil"},
+    {"id": 79, "eixo": "3. Segurança Pública", "nicho": "Corpo de Bombeiros", "texto": "Ampliar grupamentos do Corpo de Bombeiros nas cidades polos do Agreste e Sertão.", "meta": "Redução do tempo de resposta a incêndios e resgates"},
+    {"id": 80, "eixo": "3. Segurança Pública", "nicho": "Perícia Forense", "texto": "Criar o Instituto de Genética Forense de Pernambuco para banco de dados de DNA.", "meta": "Investigação científica moderna de crimes complexos"},
+    {"id": 81, "eixo": "3. Segurança Pública", "nicho": "Moradores de Favela", "texto": "Criar o canal direto da Ouvidoria de Polícia nos WhatsApps comunitários.", "meta": "Denúncia rápida de abusos policiais com sigilo garantido"},
+    {"id": 82, "eixo": "3. Segurança Pública", "nicho": "Cultura e Lazer", "texto": "Garantir a realização de eventos culturais periféricos (bailes brega, saraus, batalhas de rima) sem repressão.", "meta": "Reconhecimento do direito à festa e cultura popular"},
+    {"id": 83, "eixo": "3. Segurança Pública", "nicho": "Direitos Humanos", "texto": "Realizar o censo estadual de pessoas desaparecidas com banco de dados unificado.", "meta": "Busca ativa e apoio a famílias de desaparecidos"},
+    {"id": 84, "eixo": "3. Segurança Pública", "nicho": "Comércio Local", "texto": "Patrulhamento comunitário a pé nos centros comerciais de bairro.", "meta": "Presença física aproximada do policial com o lojista"},
+    {"id": 85, "eixo": "3. Segurança Pública", "nicho": "Segurança Geral", "texto": "Implantar a política estadual de cultura de paz e não-violência com fóruns escolares.", "meta": "Ações de conscientização cidadã desde a infância"},
+
+    {"id": 86, "eixo": "4. Educação", "nicho": "Estudantes / Geral", "texto": "Garantir educação pública gratuita, laica, antirracista, inclusiva e de qualidade em Pernambuco.", "meta": "Valorização do ensino público em todos os níveis"},
+    {"id": 87, "eixo": "4. Educação", "nicho": "Professores / Servidores", "texto": "Pagar o Piso Salarial Nacional do Magistério em todas as carreiras com reajuste no vencimento base.", "meta": "Cumprimento rigoroso do piso salarial com valorização"},
+    {"id": 88, "eixo": "4. Educação", "nicho": "Crianças / Creches", "texto": "Construir creches e pré-escolas públicas em parceria com os municípios prioritariamente nas periferias.", "meta": "Universalização do acesso às creches públicas"},
+    {"id": 89, "eixo": "4. Educação", "nicho": "Escolas Estaduais", "texto": "Climatizar 100% das salas de aula e reformar a estrutura física das escolas públicas da rede.", "meta": "Ar-condicionado e acessibilidade em todas as escolas"},
+    {"id": 90, "eixo": "4. Educação", "nicho": "Alunos PcD / TEA", "texto": "Garantir profissionais de apoio escolar (mediadores) para estudantes com deficiência ou neurodivergência.", "meta": "Garantia de atendimento educacional especializado individualizado"},
+    {"id": 91, "eixo": "4. Educação", "nicho": "Estudantes de Baixa Renda", "texto": "Garantir merenda escolar nutritiva, orgânica e com opção vegana fornecida pela agricultura familiar.", "meta": "Alimentação escolar saudável durante todo o ano"},
+    {"id": 92, "eixo": "4. Educação", "nicho": "Gestão Escolar", "texto": "Implementar a gestão democrática com eleição direta para diretores de escola pela comunidade escolar.", "meta": "Fim da indicação política para cargos de direção escolar"},
+    {"id": 93, "eixo": "4. Educação", "nicho": "Jovens e Adultos", "texto": "Fortalecer o EJA (Educação de Jovens e Adultos) no horário noturno integrado à formação profissional.", "meta": "Redução do analfabetismo funcional em adultos"},
+    {"id": 94, "eixo": "4. Educação", "nicho": "Comunidades Quilombolas e Indígenas", "texto": "Garantir educação escolar indígena e quilombola com material didático próprio e valorização da cultura.", "meta": "Respeito à ancestralidade e contratação de professores das próprias comunidades"},
+    {"id": 95, "eixo": "4. Educação", "nicho": "Estudantes / Cultura", "texto": "Cumprir a Lei 10.639/03 garantindo o ensino da História e Cultura Afro-Brasileira na grade curricular.", "meta": "Implementação efetiva da educação antirracista"},
+    {"id": 96, "eixo": "4. Educação", "nicho": "Universitários da UPE", "texto": "Aumentar o orçamento da Universidade de Pernambuco (UPE) com foco na assistência estudantil e restaurante universitário.", "meta": "Bolsas de permanência e RU gratuito para vulneráveis"},
+    {"id": 97, "eixo": "4. Educação", "nicho": "Estudantes do Interior", "texto": "Garantir transporte escolar gratuito e adaptado para estudantes da zona rural e periferia.", "meta": "Frota de ônibus escolares renovada e acessível"},
+    {"id": 98, "eixo": "4. Educação", "nicho": "Tecnologia / Conectividade", "texto": "Garantir internet Wi-Fi de alta velocidade e computadores atualizados em todas as bibliotecas escolares.", "meta": "Inclusão digital plena para a comunidade escolar"},
+    {"id": 99, "eixo": "4. Educação", "nicho": "Saúde Mental Escolar", "texto": "Contratar psicólogos e assistentes sociais para atuar permanentemente em cada escola estadual.", "meta": "Acompanhamento emocional para alunos e professores"},
+    {"id": 100, "eixo": "4. Educação", "nicho": "Combate à Evasão", "texto": "Criar o programa Bolsa Permanência Escolar para evitar que jovens abandonem a escola para trabalhar.", "meta": "Transferência de renda condicionada à frequência escolar"},
+    {"id": 101, "eixo": "4. Educação", "nicho": "Formação Continuada", "texto": "Criar a Casa do Professor com cursos de pós-graduação e formação continuada gratuitos.", "meta": "Capacitação profissional permanente da rede pública"},
+
+    {"id": 102, "eixo": "5. Cultura", "nicho": "Artistas / Geral", "texto": "Destinar no mínimo 2% do orçamento estadual para o financiamento público da cultura em Pernambuco.", "meta": "Garantia de recursos permanentes para a cultura"},
+    {"id": 103, "eixo": "5. Cultura", "nicho": "Artistas Populares", "texto": "Descentralizar os recursos do Funcultura garantindo cota mínima de 50% para projetos do interior e periferias.", "meta": "Democratização no acesso aos editais de cultura"},
+    {"id": 104, "eixo": "5. Cultura", "nicho": "Mestres do Patrimônio", "texto": "Pagar cachês artísticos de eventos oficiais (Carnaval, São João) em no máximo 30 dias após a apresentação.", "meta": "Fim dos atrasos históricos nos pagamentos a artistas locais"},
+    {"id": 105, "eixo": "5. Cultura", "nicho": "Cultura Periférica", "texto": "Fomentar e reconhecer a cultura Hip Hop, o Brega, o Passinho, a Ciranda e o Maracatu como patrimônio vivo.", "meta": "Apoio financeiro direto às manifestações periféricas"},
+    {"id": 106, "eixo": "5. Cultura", "nicho": "Equipamentos Culturais", "texto": "Reforma urgente do Teatro Arraial, Cinema São Luiz, Museu do Estado e teatros do interior.", "meta": "Restauração e reabertura dos equipamentos culturais estaduais"},
+    {"id": 107, "eixo": "5. Cultura", "nicho": "Povos de Terreiro", "texto": "Garantir edital específico do Funcultura para salvaguarda e memória das religiões de matriz africana.", "meta": "Preservação da memória e tradições dos terreiros"},
+    {"id": 108, "eixo": "5. Cultura", "nicho": "Jovens Artistas", "texto": "Criar os Centros Culturais Periféricos em bairros vulneráveis com estúdios de gravação gratuitos.", "meta": "Estúdios comunitários de áudio e vídeo"},
+    {"id": 109, "eixo": "5. Cultura", "nicho": "Mestres da Cultura Popular", "texto": "Reajustar e ampliar o número de bolsas para os Mestres do Patrimônio Vivo de Pernambuco.", "meta": "Aumento do valor da bolsa vitalícia"},
+    {"id": 110, "eixo": "5. Cultura", "nicho": "Produtores de Cinema", "texto": "Lançar o Programa Estadual de Fomento ao Audiovisual Pernambucano com editais contínuos.", "meta": "Apoio ao cinema independente pernambucano"},
+    {"id": 111, "eixo": "5. Cultura", "nicho": "Leitores / Literatura", "texto": "Implantar bibliotecas comunitárias interativas em assentamentos, quilombos e favelas.", "meta": "Incentivo à leitura e doação de acervos"},
+    {"id": 112, "eixo": "5. Cultura", "nicho": "Artes Visual e Plásticas", "texto": "Criar galerias públicas de arte urbana para artistas locais e graffiteiros.", "meta": "Espaços de exposição e valorização da arte de rua"},
+    {"id": 113, "eixo": "5. Cultura", "nicho": "Acessibilidade Cultural", "texto": "Garantir acessibilidade física, audiodescrição e LIBRAS em 100% dos eventos culturais estaduais.", "meta": "Cultura acessível para pessoas com deficiência"},
+    {"id": 114, "eixo": "5. Cultura", "nicho": "Músicos e Bandas", "texto": "Criar o Circuito Estadual de Shows nos parques públicos e praças do interior.", "meta": "Circulação de artistas locais em feiras e praças"},
+    {"id": 115, "eixo": "5. Cultura", "nicho": "Cultura da Infância", "texto": "Promover o programa Festival de Teatro e Circo Infantil nas comunidades carentes.", "meta": "Lazer e formação cultural para crianças"},
+    {"id": 116, "eixo": "5. Cultura", "nicho": "Trabalhadores da Cultura", "texto": "Criar a Carteira de Identificação do Trabalhador da Cultura com descontos e benefícios.", "meta": "Valorização da categoria de produtores e técnicos"},
+    {"id": 117, "eixo": "5. Cultura", "nicho": "Carnaval Tradicional", "texto": "Incentivar agremiações tradicionais de Maracatu de Baque Solto e Baque Virado no interior.", "meta": "Apoio financeiro prévio para confecção de fantasias e adereços"},
+    {"id": 118, "eixo": "5. Cultura", "nicho": "Memória e Arquivo", "texto": "Digitalizar todo o acervo do Arquivo Público Estadual para acesso online aberto.", "meta": "Preservação e democratização da história de PE"},
+
+    {"id": 119, "eixo": "6. Mobilidade Urbana", "nicho": "Passageiros / Geral", "texto": "Efetivar o Passe Livre Estudantil e Tarifa Zero no transporte público para desempregados e vulneráveis.", "meta": "Transporte como direito social gratuito"},
+    {"id": 120, "eixo": "6. Mobilidade Urbana", "nicho": "Usuários de Ônibus", "texto": "Estatizar gradualmente a gestão do transporte coletivo na RMR eliminando o lucro das empresas privadas.", "meta": "Fim dos subsídios sem contrapartida ao empresariado do transporte"},
+    {"id": 121, "eixo": "6. Mobilidade Urbana", "nicho": "Passageiros do Metrô", "texto": "Exigir do Governo Federal a recuperação imediata das estações e trens do Metrô do Recife.", "meta": "Metrô público, seguro, pontual e com preço acessível"},
+    {"id": 122, "eixo": "6. Mobilidade Urbana", "nicho": "Ciclistas", "texto": "Construir a Rede Cicloviária Integrada conectando as cidades da Região Metropolitana ao interior.", "meta": "150 km de novas ciclovias protegidas e iluminadas"},
+    {"id": 123, "eixo": "6. Mobilidade Urbana", "nicho": "Pedestres", "texto": "Priorizar o pedestre com calçadas planas, acessíveis, arborizadas e faixas de pedestre elevadas.", "meta": "Plano estadual de caminhabilidade urbana"},
+    {"id": 124, "eixo": "6. Mobilidade Urbana", "nicho": "Pessoas com Deficiência", "texto": "Garantir frota de ônibus e estações 100% adaptadas com elevadores e sinalização sonora.", "meta": "Acessibilidade universal no sistema intermunicipal"},
+    {"id": 125, "eixo": "6. Mobilidade Urbana", "nicho": "Moradores dos Morros", "texto": "Implantar o sistema de Transporte Cidadão (vans e minivans integradas) nas ladeiras de difícil acesso.", "meta": "Integração tarifária dos bairros altos com os terminais"},
+    {"id": 126, "eixo": "6. Mobilidade Urbana", "nicho": "Trabalhadores", "texto": "Ar-condicionado obrigatório em 100% da frota de ônibus em operação na Região Metropolitana.", "meta": "Conforto térmico no transporte público coletivo"},
+    {"id": 127, "eixo": "6. Mobilidade Urbana", "nicho": "Mulheres Passageiras", "texto": "Fortalecer a fiscalização contra a importunação sexual nos ônibus e estações com botão de denúncia.", "meta": "Campanha permanente de respeito e segurança às mulheres no transporte"},
+    {"id": 128, "eixo": "6. Mobilidade Urbana", "nicho": "Motoristas de Ônibus", "texto": "Acabar com o acúmulo de função de motorista e cobrador garantindo a volta do cobrador.", "meta": "Segurança no trânsito e geração de empregos formais"},
+    {"id": 129, "eixo": "6. Mobilidade Urbana", "nicho": "Hidrovia", "texto": "Implementar o projeto de Transporte Fluvial de Passageiros no Rio Capibaribe.", "meta": "Ativação de rotas navegáveis como alternativa de mobilidade"},
+    {"id": 130, "eixo": "6. Mobilidade Urbana", "nicho": "Rodovias do Interior", "texto": "Recuperar e sinalizar as estradas vicinais estaduais garantindo escoamento da produção agrícola.", "meta": "Manutenção das PE's no Agreste e Sertão"},
+    {"id": 131, "eixo": "6. Mobilidade Urbana", "nicho": "Terminais Integrados", "texto": "Reforma dos Terminais Integrados com banheiros limpos gratuitos, iluminação e segurança.", "meta": "Manutenção digna das estações de transbordo"},
+
+    {"id": 132, "eixo": "7. Assistência Social", "nicho": "Famílias Vulneráveis", "texto": "Criar a Renda Básica Estadual para famílias em situação de extrema pobreza não cobertas pelo Bolsa Família.", "meta": "Erradicação da fome extrema no estado"},
+    {"id": 133, "eixo": "7. Assistência Social", "nicho": "Trabalhadores do SUAS", "texto": "Aumentar o cofinanciamento estadual aos municípios para fortalecimento dos CRAS e CREAS.", "meta": "Apoio orçamentário direto aos centros de assistência"},
+    {"id": 134, "eixo": "7. Assistência Social", "nicho": "População em Situação de Rua", "texto": "Ampliar a rede de Restaurantes Populares e Cozinhas Comunitárias com refeições diárias gratuitas.", "meta": "Garantia de segurança alimentar e nutricional 365 dias"},
+    {"id": 135, "eixo": "7. Assistência Social", "nicho": "Pessoas sem Teto", "texto": "Implantar o programa Moradia Primeiro (Housing First) garantindo moradia imediata e acompanhamento.", "meta": "Acolhimento definitivo para população de rua"},
+    {"id": 136, "eixo": "7. Assistência Social", "nicho": "Mulheres Chefes de Família", "texto": "Conceder o Auxílio Gás Estadual gratuito para beneficiárias do CadÚnico.", "meta": "Distribuição regular de recargas de botijão de gás"},
+    {"id": 137, "eixo": "7. Assistência Social", "nicho": "Idosos e PcD", "texto": "Criar os Centros Dia estaduais para acolhimento diurno de pessoas idosas e com deficiência.", "meta": "Suporte às famílias cuidadoras durante o dia"},
+    {"id": 138, "eixo": "7. Assistência Social", "nicho": "Crianças / Pobreza", "texto": "Implantar o Programa Estadual Primeira Infância Protegida com transferência de renda para gestantes.", "meta": "Cuidado nutricional e social nos primeiros 1.000 dias"},
+    {"id": 139, "eixo": "7. Assistência Social", "nicho": "Catadores e Recicladores", "texto": "Construir Centros de Triagem e apoio técnico para associações de catadores de lixo.", "meta": "Garantia de renda e equipamentos de proteção individual"},
+
+    {"id": 140, "eixo": "8. Moradia, Terra e Teto", "nicho": "Moradores de Palafitas / Favelas", "texto": "Lançar o Programa Estadual de Habitação Social sem remoção forçada das comunidades.", "meta": "Construção de 40.000 moradias populares em áreas urbanizadas"},
+    {"id": 141, "eixo": "8. Moradia, Terra e Teto", "nicho": "Moradores de Morros", "texto": "Executar obras definitivas de contenção de encostas e geomantas em todas as áreas de risco.", "meta": "Zero mortes por deslizamento de terra no inverno"},
+    {"id": 142, "eixo": "8. Moradia, Terra e Teto", "nicho": "Famílias Sem Teto", "texto": "Utilizar prédios públicos estaduais abandonados e vazios urbanos para habitação de interesse social.", "meta": "Reforma e destinação habitacional de imóveis ociosos"},
+    {"id": 143, "eixo": "8. Moradia, Terra e Teto", "nicho": "Posseiros / Periferia", "texto": "Garantir a Regularização Fundiária Urbana (REURB) com entrega de escrituras gratuitas.", "meta": "Segurança jurídica da moradia própria para famílias de baixa renda"},
+    {"id": 144, "eixo": "8. Moradia, Terra e Teto", "nicho": "Saneamento Básico", "texto": "Promover obras de esgotamento sanitário e drenagem nos morros e baixadas periféricas.", "meta": "Saneamento básico integrado nas periferias"},
+    {"id": 145, "eixo": "8. Moradia, Terra e Teto", "nicho": "Aluguel Social", "texto": "Aumentar o valor e reajustar o Aluguel Social Emergencial para famílias desabrigadas por chuvas.", "meta": "Benefício justo garantido até a entrega da casa definitiva"},
+
+    {"id": 146, "eixo": "9. Meio Ambiente", "nicho": "Sociedade / Geral", "texto": "Implementar o Plano Estadual de Transição Ecológica e Combate às Mudanças Climáticas.", "meta": "Metas rígidas de redução de emissões e preservação"},
+    {"id": 147, "eixo": "9. Meio Ambiente", "nicho": "Unidades de Conservação", "texto": "Proteger e reflorestar a Mata Atlântica e a Caatinga com criação de novos parques estaduais.", "meta": "Plantio de 10 milhões de mudas nativas"},
+    {"id": 148, "eixo": "9. Meio Ambiente", "nicho": "Bacias Hidrográficas", "texto": "Despoluir e desassorear os rios Capibaribe, Beberibe, Ipojuca e São Francisco.", "meta": "Revitalização dos rios com saneamento e fiscalização"},
+    {"id": 149, "eixo": "9. Meio Ambiente", "nicho": "Cidades / Lixo", "texto": "Apoiar os municípios na erradicação total dos lixões e incentivo à compostagem de orgânicos.", "meta": "Fim dos lixões a céu aberto e incentivo à reciclagem"},
+    {"id": 150, "eixo": "9. Meio Ambiente", "nicho": "Protetores de Animais", "texto": "Criar a Rede Estadual de Proteção Animal com atendimento veterinário gratuito e castramóveis.", "meta": "Castração e atendimento público veterinário no interior"},
+    {"id": 151, "eixo": "9. Meio Ambiente", "nicho": "Agronegócio / Agrotóxicos", "texto": "Fiscalizar e proibir a pulverização aérea de agrotóxicos em todo o território de Pernambuco.", "meta": "Banimento da pulverização aérea de veneno agrícola"},
+    {"id": 152, "eixo": "9. Meio Ambiente", "nicho": "Comunidades Litorâneas", "texto": "Proteger a orla e os manguezais contra a especulação imobiliária e avanço do mar.", "meta": "Preservação dos manguezais e contenção sustentável da erosão"},
+    {"id": 153, "eixo": "9. Meio Ambiente", "nicho": "Educação Ambiental", "texto": "Criar o Programa Estadual de Hortas Comunitárias e Compostagem nas escolas e bairros.", "meta": "Educação ambiental prática nas comunidades"},
+    {"id": 154, "eixo": "9. Meio Ambiente", "nicho": "Energia Renovável", "texto": "Incentivar a matriz energética eólica e solar com salvaguardas socioambientais para as populações locais.", "meta": "Energia limpa com respeito às comunidades rurais"},
+
+    {"id": 155, "eixo": "10. Comunicação Pública", "nicho": "Sociedade / Geral", "texto": "Fortalecer a Empresa Pernambuco de Comunicação (EPC), TV Pernambuco e Rádio Frei Caneca.", "meta": "Comunicação pública independente do governo de plantão"},
+    {"id": 156, "eixo": "10. Comunicação Pública", "nicho": "Jornalistas e Mídias Periféricas", "texto": "Destinar no mínimo 20% da verba de publicidade estatal para mídias comunitárias e jornais de bairro.", "meta": "Democratização das verbas de comunicação governamental"},
+    {"id": 157, "eixo": "10. Comunicação Pública", "nicho": "Cidadãos / Internet", "texto": "Garantir internet Wi-Fi livre e de alta velocidade em todos os espaços públicos e praças estaduais.", "meta": "Inclusão digital como direito cidadão"},
+    {"id": 158, "eixo": "10. Comunicação Pública", "nicho": "Transparência Pública", "texto": "Garantir acesso fácil e em tempo real a todos os contratos públicos e salários no Portal da Transparência.", "meta": "Transparência total dos atos governamentais"},
+    {"id": 159, "eixo": "10. Comunicação Pública", "nicho": "Radiodifusão Comunitária", "texto": "Apoiar o funcionamento e sustentabilidade das rádios e TVs comunitárias do interior.", "meta": "Desburocratização de outorgas e apoio técnico"},
+    {"id": 160, "eixo": "10. Comunicação Pública", "nicho": "Combate às Fake News", "texto": "Criar a Agência Pública de Checagem e Combate à Desinformação na Saúde e Educação.", "meta": "Verificação de fatos de interesse público"},
+    {"id": 161, "eixo": "10. Comunicação Pública", "nicho": "Software Livre", "texto": "Priorizar o uso de sistemas e softwares livres de código aberto na administração estadual.", "meta": "Soberania digital e economia de recursos públicos"},
+    {"id": 162, "eixo": "10. Comunicação Pública", "nicho": "Acessibilidade Digital", "texto": "Garantir que todos os sites governamentais tenham acessibilidade para cegos e intérprete virtual de LIBRAS.", "meta": "Acessibilidade digital universal"},
+    {"id": 163, "eixo": "10. Comunicação Pública", "nicho": "Comunicadores Populares", "texto": "Oferecer cursos gratuitos de formação em jornalismo comunitário e produção audiovisual nos bairros.", "meta": "Capacitação de comunicadores populares"},
+
+    {"id": 164, "eixo": "11. Ciência e Tecnologia", "nicho": "Pesquisadores / Estudantes", "texto": "Garantir repasses regulares da receita do Estado para a FACEPE promovendo a inovação tecnológica.", "meta": "Aumento do investimento em ciência e tecnologia"},
+    {"id": 165, "eixo": "11. Ciência e Tecnologia", "nicho": "Porto Digital / Interior", "texto": "Descentralizar a tecnologia criando polos do Porto Digital em Caruaru, Serra Talhada e Petrolina.", "meta": "Interiorização do ecossistema de inovação"},
+    {"id": 166, "eixo": "11. Ciência e Tecnologia", "nicho": "Universidades Públicas", "texto": "Apoiar pesquisas científicas voltadas para a agroecologia, saúde pública e energias limpas.", "meta": "Financiamento de pesquisas de impacto social"},
+    {"id": 167, "eixo": "11. Ciência e Tecnologia", "nicho": "Jovens Programadores", "texto": "Criar o Programa Embarque Periférico oferecendo cursos gratuitos de programação e bolsas de estudo.", "meta": "Formação de jovens da periferia para o mercado de TI"},
+    {"id": 168, "eixo": "11. Ciência e Tecnologia", "nicho": "Serviços Públicos", "texto": "Utilizar tecnologia de código aberto para automatizar filas de atendimento e agendamentos no SUS.", "meta": "Inovação tecnológica a serviço do cidadão"},
+    {"id": 169, "eixo": "11. Ciência e Tecnologia", "nicho": "Mulheres na Ciência", "texto": "Criar editais específicos da FACEPE de incentivo às mulheres cientistas e pesquisadoras.", "meta": "Equidade de gênero na ciência pernambucana"},
+    {"id": 170, "eixo": "11. Ciência e Tecnologia", "nicho": "Startups Sociais", "texto": "Criar a Incubadora Estatal de Startups Sociais focadas em resolver problemas das favelas.", "meta": "Apoio financeiro e mentoria para empreendedores sociais"},
+    {"id": 171, "eixo": "11. Ciência e Tecnologia", "nicho": "Inclusão Digital", "texto": "Instalar Telecentros Comunitários com computadores e aulas de informática para idosos e jovens.", "meta": "Acesso comunitário às ferramentas digitais"},
+    {"id": 172, "eixo": "11. Ciência e Tecnologia", "nicho": "Soberania Tecnológica", "texto": "Criar o Centro Estadual de Dados Públicos (Data Center Público) para proteger dados dos cidadãos.", "meta": "Proteção de dados pessoais e privacidade no setor público"},
+    {"id": 173, "eixo": "11. Ciência e Tecnologia", "nicho": "Escolas Públicas", "texto": "Equipar laboratórios de ciências e física em todas as escolas de ensino médio da rede estadual.", "meta": "Infraestrutura científica escolar atualizada"},
+    {"id": 174, "eixo": "11. Ciência e Tecnologia", "nicho": "Robotização / Maker", "texto": "Oferecer oficinas de robótica sustentável com lixo eletrônico nas escolas públicas.", "meta": "Tecnologia e reciclagem integradas na educação"},
+    {"id": 175, "eixo": "11. Ciência e Tecnologia", "nicho": "Pesquisa Farmacêutica", "texto": "Fortalecer o LAFEPE para produção pública de medicamentos genéricos e fitoterápicos.", "meta": "Soberania farmacêutica estadual com preços baixos"},
+    {"id": 176, "eixo": "11. Ciência e Tecnologia", "nicho": "Acessibilidade Tecnológica", "texto": "Fomentar o desenvolvimento de tecnologias assistivas de baixo custo para pessoas com deficiência.", "meta": "Inovação para acessibilidade e inclusão"},
+    {"id": 177, "eixo": "11. Ciência e Tecnologia", "nicho": "Cultura Digital", "texto": "Apoiar acervos digitais de cultura popular e museus virtuais dos mestres do patrimônio.", "meta": "Preservação digital do patrimônio pernambucano"},
+    {"id": 178, "eixo": "11. Ciência e Tecnologia", "nicho": "Gestão Hídrica", "texto": "Utilizar sensores e dados de satélite para monitorar secas e vazamentos na rede de água.", "meta": "Tecnologia aplicada ao combate à escassez hídrica"},
+    {"id": 179, "eixo": "11. Ciência e Tecnologia", "nicho": "Bolsistas", "texto": "Reajustar anualmente os valores das bolsas de iniciação científica e pós-graduação da FACEPE.", "meta": "Valorização dos jovens cientistas locais"},
+
+    {"id": 180, "eixo": "12. Comunidades Tradicionais", "nicho": "Quilombolas / Indígenas", "texto": "Apoiar a titulação e demarcação de todos os territórios quilombolas e terras indígenas de Pernambuco.", "meta": "Garantia do direito ancestral à terra"},
+    {"id": 181, "eixo": "12. Comunidades Tradicionais", "nicho": "Povos de Terreiro", "texto": "Garantir a proteção jurídica e combate ao racismo religioso contra os Ilês e Terreiros de Candomblé/Jurema.", "meta": "Mapeamento e proteção do patrimônio sagrado negro"},
+    {"id": 182, "eixo": "12. Comunidades Tradicionais", "nicho": "Agricultores Tradicionais", "texto": "Fomentar a preservação de sementes crioulas e bancos comunitários de sementes sem transgenia.", "meta": "Soberania alimentar e salvaguarda das sementes nativas"},
+    {"id": 183, "eixo": "12. Comunidades Tradicionais", "nicho": "Povo Cigano", "texto": "Garantir acesso à saúde, educação e documentação respeitando o nomadismo e cultura cigana.", "meta": "Políticas públicas específicas para povos ciganos"},
+    {"id": 184, "eixo": "12. Comunidades Tradicionais", "nicho": "Pescadores e Marisqueiras", "texto": "Garantir os direitos territoriais dos povos das águas protegendo estuários e manguezais.", "meta": "Proteção à pesca artesanal tradicional"},
+    {"id": 185, "eixo": "12. Comunidades Tradicionais", "nicho": "Mulheres Quilombolas", "texto": "Criar linhas de crédito e apoio à comercialização de artesanato e alimentos produzidos por mulheres quilombolas.", "meta": "Autonomia financeira das mulheres tradicionais"},
+    {"id": 186, "eixo": "12. Comunidades Tradicionais", "nicho": "Saúde Tradicional", "texto": "Reconhecer e valorizar a medicina tradicional, parteiras e rezadeiras na rede do SUS.", "meta": "Integração de saberes tradicionais na saúde comunitária"},
+    {"id": 187, "eixo": "12. Comunidades Tradicionais", "nicho": "Infraestrutura Básica", "texto": "Garantir água potável, energia elétrica e estradas acessíveis para todas as comunidades quilombolas.", "meta": "Infraestrutura digna para territórios tradicionais"},
+    {"id": 188, "eixo": "12. Comunidades Tradicionais", "nicho": "Juventude Tradicional", "texto": "Conceder cotas e bolsas de estudo específicas para jovens quilombolas e indígenas na UPE.", "meta": "Inclusão no ensino superior estadual"},
+    {"id": 189, "eixo": "12. Comunidades Tradicionais", "nicho": "Cultura e Tradição", "texto": "Fomentar os encontros e festivais de cultura tradicional e religiosidade matriz africana.", "meta": "Valorização da diversidade cultural ancestral"},
+    {"id": 190, "eixo": "12. Comunidades Tradicionais", "nicho": "Direitos Fundiários", "texto": "Criar a Procuradoria Especializada em Conflitos Fundiários e Proteção aos Povos Tradicionais.", "meta": "Defesa jurídica gratuita contra despejos ilegais"},
+    {"id": 191, "eixo": "12. Comunidades Tradicionais", "nicho": "Sustentabilidade", "texto": "Pagamento por Serviços Ambientais (PSA) para comunidades que preservam florestas e nascentes.", "meta": "Incentivo financeiro pela preservação da natureza"},
+
+    {"id": 192, "eixo": "13. Políticas Mulheres", "nicho": "Todas as Mulheres", "texto": "Garantir vida digna e sem violência para todas as mulheres com uma rede estadual intersetorial.", "meta": "Combate ao feminicídio e ao machismo estrutural"},
+    {"id": 193, "eixo": "13. Políticas Mulheres", "nicho": "Mulheres Vítimas de Violência", "texto": "Construir novas Casas Abrigo com localização sigilosa para mulheres sob ameaça de morte e seus filhos.", "meta": "Proteção integral e acolhimento de urgência"},
+    {"id": 194, "eixo": "13. Políticas Mulheres", "nicho": "Mulheres Trabalhadoras", "texto": "Garantir prioridade de vagas em creches públicas para filhos de mulheres trabalhadoras e solo.", "meta": "Apoio para autonomia de trabalho das mães"},
+    {"id": 195, "eixo": "13. Políticas Mulheres", "nicho": "Mães Solo", "texto": "Criar o Programa Estadual de Apoio às Mães Solo com benefício financeiro e prioridade habitacional.", "meta": "Proteção social para famílias chefiadas por mulheres"},
+    {"id": 196, "eixo": "13. Políticas Mulheres", "nicho": "Saúde da Mulher", "texto": "Garantir exames preventivos (mamografia, papanicolau) sem fila de espera no SUS.", "meta": "Diagnóstico precoce do câncer na rede pública"},
+    {"id": 197, "eixo": "13. Políticas Mulheres", "nicho": "Dignidade Menstrual", "texto": "Distribuir absorventes higiênicos gratuitamente em todas as escolas públicas, postos e presídios.", "meta": "Erradicação da pobreza menstrual"},
+    {"id": 198, "eixo": "13. Políticas Mulheres", "nicho": "Mulheres Empreendedoras", "texto": "Criar a linha de crédito 'Mulher Fazer História' com juro zero para pequenos negócios femininos.", "meta": "Emancipação financeira e microcrédito"},
+    {"id": 199, "eixo": "13. Políticas Mulheres", "nicho": "Gestantes e Puérperas", "texto": "Garantir o direito ao acompanhante no parto e parto humanizado em todas as maternidades públicas.", "meta": "Fim da violência obstétrica"},
+    {"id": 200, "eixo": "13. Políticas Mulheres", "nicho": "Mulheres Negras", "texto": "Criar o Plano Estadual de Enfrentamento ao Homicídio e Violência contra Mulheres Negras.", "meta": "Políticas específicas para a população feminina negra"},
+    {"id": 201, "eixo": "13. Políticas Mulheres", "nicho": "Mulheres Rurais", "texto": "Apoiar a documentação, acesso à terra e crédito para mulheres agricultoras e assentadas.", "meta": "Fortalecimento do trabalho feminino no campo"},
+    {"id": 202, "eixo": "13. Políticas Mulheres", "nicho": "Delegacias da Mulher", "texto": "Transformar todas as DEAMs em centrais de atendimento 24h equipadas com equipe multidisciplinar.", "meta": "Atendimento policial e psicológico humanizado ininterrupto"},
+    {"id": 203, "eixo": "13. Políticas Mulheres", "nicho": "Mulheres LBT", "texto": "Garantir acolhimento de saúde e combate à discriminação de mulheres lésbicas, bissexuais e trans.", "meta": "Saúde e direitos sem lesbofobia ou transgrufobia"},
+    {"id": 204, "eixo": "13. Políticas Mulheres", "nicho": "Igualdade Salarial", "texto": "Fiscalizar a igualdade salarial entre homens e mulheres em empresas contratadas pelo Estado.", "meta": "Exigência de salário igual para função igual"},
+    {"id": 205, "eixo": "13. Políticas Mulheres", "nicho": "Autonomia Política", "texto": "Fomentar a participação de mulheres nos conselhos de bairro e órgãos de decisão governamental.", "meta": "Paridade de gênero nos cargos de chefia do Estado"},
+    {"id": 206, "eixo": "13. Políticas Mulheres", "nicho": "Combate ao Assédio", "texto": "Lançar campanha permanente contra o assédio sexual nos transportes, locais de trabalho e shows.", "meta": "Zero tolerância ao assédio no estado"},
+    {"id": 207, "eixo": "13. Políticas Mulheres", "nicho": "Mulheres Idosas", "texto": "Criar centros de convivência e oficinas de saúde funcional para mulheres idosas nas periferias.", "meta": "Envelhecimento ativo e digno"},
+    {"id": 208, "eixo": "13. Políticas Mulheres", "nicho": "Mães de Pessoas PcD", "texto": "Garantir apoio psicológico e BPC para mães cuidadoras de filhos com deficiência severa.", "meta": "Cuidado e amparo à mãe cuidadora"},
+    {"id": 209, "eixo": "13. Políticas Mulheres", "nicho": "Mulheres Privadas de Liberdade", "texto": "Garantir condições dignas de maternidade e creche nas unidades prisionais femininas.", "meta": "Respeito aos direitos das presas e seus bebês"},
+    {"id": 210, "eixo": "13. Políticas Mulheres", "nicho": "Profissionais do Sexo", "texto": "Garantir atenção à saúde, cidadania e combate à violência de gênero para profissionais do sexo.", "meta": "Acesso ao SUS sem estigma ou discriminação"},
+    {"id": 211, "eixo": "13. Políticas Mulheres", "nicho": "Educação de Gênero", "texto": "Promover palestras sobre igualdade de gênero e prevenção da violência nas escolas estaduais.", "meta": "Educação para o respeito e não-violência desde cedo"},
+    {"id": 212, "eixo": "13. Políticas Mulheres", "nicho": "Mulheres Lideranças", "texto": "Apoiar a formação de lideranças comunitárias femininas nos morros e periferias.", "meta": "Capacitação em direitos humanos e gestão"},
+    {"id": 213, "eixo": "13. Políticas Mulheres", "nicho": "Direito de Ir e Vir", "texto": "Melhorar a iluminação pública no entorno de paradas de ônibus para segurança das mulheres à noite.", "meta": "Caminhos seguros para as mulheres na cidade"},
+    {"id": 214, "eixo": "13. Políticas Mulheres", "nicho": "Saúde Mental Feminina", "texto": "Oferecer atendimento psicológico especializado para mulheres vítimas de traumas ou depressão pós-parto.", "meta": "Rede de saúde mental da mulher no SUS"},
+    {"id": 215, "eixo": "13. Políticas Mulheres", "nicho": "Mãe Coruja", "texto": "Fortalecer o Programa Mãe Coruja com foco no desenvolvimento infantil e apoio nutricional.", "meta": "Ampliação da cobertura do Mãe Coruja no interior"},
+    {"id": 216, "eixo": "13. Políticas Mulheres", "nicho": "Mulheres Marisqueiras", "texto": "Garantir equipamentos de proteção e exames ortopédicos para trabalhadoras dos mangues.", "meta": "Saúde ocupacional para marisqueiras"},
+    {"id": 217, "eixo": "13. Políticas Mulheres", "nicho": "Selo Pró-Mulher", "texto": "Criar certificação para prefeituras e empresas que cumprirem metas de proteção às mulheres.", "meta": "Estímulo a boas práticas de gênero"},
+    {"id": 218, "eixo": "13. Políticas Mulheres", "nicho": "Mulheres no Esporte", "texto": "Fomentar modalidades esportivas femininas e garantir bolsas de apoio a atletas mulheres.", "meta": "Incentivo e igualdade de prêmios no esporte feminino"},
+    {"id": 219, "eixo": "13. Políticas Mulheres", "nicho": "Orçamento de Gênero", "texto": "Implantar o Orçamento Sensível ao Gênero analisando o impacto dos gastos públicos nas mulheres.", "meta": "Transparência dos investimentos voltados às mulheres"},
+    {"id": 220, "eixo": "13. Políticas Mulheres", "nicho": "Mulheres Indígenas", "texto": "Apoiar encontros estaduais de mulheres indígenas para formulação de políticas públicas territoriais.", "meta": "Voz e protagonismo às mulheres nativas"},
+    {"id": 221, "eixo": "13. Políticas Mulheres", "nicho": "Conselho da Mulher", "texto": "Garantir a eleição direta do Conselho Estadual dos Direitos da Mulher com paridade com a sociedade civil.", "meta": "Controle social efetivo das políticas de mulheres"},
+
+    {"id": 222, "eixo": "14. População LGBTQIAPN+", "nicho": "Toda a Comunidade", "texto": "Garantir cidadania, respeito e combate rigoroso à lgbtfobia institucional e social em PE.", "meta": "Pernambuco sem preconceito e com direitos plenos"},
+    {"id": 223, "eixo": "14. População LGBTQIAPN+", "nicho": "Pessoas Trans e Travestis", "texto": "Garantir o uso do Nome Social em todos os órgãos públicos, escolas, postos de saúde e crachás.", "meta": "Respeito à identidade de gênero sem burocracia"},
+    {"id": 224, "eixo": "14. População LGBTQIAPN+", "nicho": "Jovens Expulsos de Casa", "texto": "Criar a Casa de Acolhimento Estadual para jovens LGBTQIA+ em situação de vulnerabilidade familiar.", "meta": "Abrigo, refeição e qualificação profissional"},
+    {"id": 225, "eixo": "14. População LGBTQIAPN+", "nicho": "Empregabilidade Trans", "texto": "Lançar o Programa Transforma Pernambuco com cotas em concursos estaduais e vagas em empresas parceiras.", "meta": "Inclusão de pessoas trans e travestis no mercado de trabalho formal"},
+    {"id": 226, "eixo": "14. População LGBTQIAPN+", "nicho": "Saúde Trans", "texto": "Expandir o Ambulatório LBTTI do Hospital das Clínicas e criar novos polos no Agreste e Sertão.", "meta": "Hormonização segura e atendimento integral pelo SUS"},
+    {"id": 227, "eixo": "14. População LGBTQIAPN+", "nicho": "Combate à Homofobia", "texto": "Fortalecer o Centro Estadual de Combate à Homofobia (CECH) com equipes itinerantes no interior.", "meta": "Atendimento jurídico e psicológico descentralizado"},
+    {"id": 228, "eixo": "14. População LGBTQIAPN+", "nicho": "Cultura Queer", "texto": "Apoiar financeiramente a realização das Paradas da Diversidade e festivais de arte LGBTQIA+.", "meta": "Incentivo cultural e fomento à diversidade"},
+    {"id": 229, "eixo": "14. População LGBTQIAPN+", "nicho": "Servidores Públicos", "texto": "Promover capacitação obrigatória em diversidade de gênero para policiais, professores e médicos.", "meta": "Fim do atendimento discriminatório nos serviços públicos"},
+    {"id": 230, "eixo": "14. População LGBTQIAPN+", "nicho": "Educação sem Homofobia", "texto": "Garantir escolas seguras e livres de bullying homofóbico e transfóbico com canais de denúncia.", "meta": "Ambiente escolar acolhedor para estudantes LGBTQIA+"},
+
+    {"id": 231, "eixo": "15. Criança e Adolescente", "nicho": "Todas as Crianças", "texto": "Prioridade absoluta na garantia dos direitos fundamentais previstos no Estatuto da Criança e do Adolescente.", "meta": "Proteção integral à infância pernambucana"},
+    {"id": 232, "eixo": "15. Criança e Adolescente", "nicho": "Conselheiros Tutelares", "texto": "Equipar todos os Conselhos Tutelares do estado com carros, computadores e sede própria acessível.", "meta": "Condições dignas de trabalho aos conselheiros tutelares"},
+    {"id": 233, "eixo": "15. Criança e Adolescente", "nicho": "Combate à Exploração", "texto": "Fortalecer a rede de combate ao abuso e exploração sexual de crianças e adolescentes.", "meta": "Ações integradas com a polícia, assistência e conselhos"},
+    {"id": 234, "eixo": "15. Criança e Adolescente", "nicho": "Crianças Trabalhadoras", "texto": "Erradicar o trabalho infantil nas feiras livres, sinais e campos de produção do interior.", "meta": "Bolsa escola e acolhimento em tempo integral"},
+    {"id": 235, "eixo": "15. Criança e Adolescente", "nicho": "Brincar na Cidade", "texto": "Construir parques infantis inclusivos e praças da infância em todas as comunidades periféricas.", "meta": "Espaços públicos de lazer seguro para crianças"},
+    {"id": 236, "eixo": "15. Criança e Adolescente", "nicho": "Primeira Infância", "texto": "Garantir acompanhamento médico, vacinação e suporte nutricional completo de 0 a 6 anos.", "meta": "Cuidado integral nos primeiros anos de vida"},
+    {"id": 237, "eixo": "15. Criança e Adolescente", "nicho": "Crianças com Deficiência", "texto": "Garantir fisioterapia, fonoaudiologia e órteses/próteses rápidas no SUS infantil.", "meta": "Reabilitação infantil sem filas de espera"},
+    {"id": 238, "eixo": "15. Criança e Adolescente", "nicho": "Adolescentes / Esporte", "texto": "Criar as Escolinhas Comunitárias de Esportes em parceria com atletas locais nos bairros altos.", "meta": "Incentivo à prática de futebol, vôlei, basquete e lutas"},
+    {"id": 239, "eixo": "15. Criança e Adolescente", "nicho": "Crianças em Abrigos", "texto": "Estimular o Programa Família Acolhedora em vez da institucionalização prolongada em abrigos.", "meta": "Convivência familiar amorosa temporária"},
+    {"id": 240, "eixo": "15. Criança e Adolescente", "nicho": "Saúde Mental Infantil", "texto": "Criar os CAPSi (Centros de Atenção Psicossocial Infantil) em todos os municípios polos de PE.", "meta": "Atendimento psiquiátrico e psicológico infantil no SUS"},
+    {"id": 241, "eixo": "15. Criança e Adolescente", "nicho": "Órfãos do Feminicídio", "texto": "Garantir o Auxílio Cuidador para avós e parentes que acolherem órfãos de mães vítimas de feminicídio.", "meta": "Amparo financeiro às crianças órfãs"},
+    {"id": 242, "eixo": "15. Criança e Adolescente", "nicho": "Alimentação Saudável", "texto": "Proibir a venda e distribuição de alimentos ultraprocessados dentro das escolas públicas e privadas.", "meta": "Combate à obesidade e diabetes infantil"},
+    {"id": 243, "eixo": "15. Criança e Adolescente", "nicho": "Leitura na Infância", "texto": "Distribuir kits de livros infantis de autores locais para todas as crianças matriculadas na rede pública.", "meta": "Estímulo ao hábito da leitura na infância"},
+    {"id": 244, "eixo": "15. Criança e Adolescente", "nicho": "Adolescentes em Aprendizagem", "texto": "Expandir o programa Jovem Aprendiz nos órgãos governamentais e autarquias do estado.", "meta": "Oportunidade de primeiro emprego com carteira assinada"},
+    {"id": 245, "eixo": "15. Criança e Adolescente", "nicho": "Crianças sem Documento", "texto": "Garantir a emissão gratuita de certidão de nascimento e RG nas maternidades públicas.", "meta": "Cidadania desde os primeiros dias de vida"},
+    {"id": 246, "eixo": "15. Criança e Adolescente", "nicho": "Segurança Digital", "texto": "Promover palestras educativas sobre segurança na internet, uso consciente de telas e prevenção ao cibercrime.", "meta": "Proteção das crianças no ambiente virtual"},
+    {"id": 247, "eixo": "15. Criança e Adolescente", "nicho": "Crianças Atípicas", "texto": "Garantir diagnóstico precoce de TEA e TDAH na rede básica de saúde.", "meta": "Intervenção precoce para desenvolvimento infantil"},
+    {"id": 248, "eixo": "15. Criança e Adolescente", "nicho": "Culturas da Infância", "texto": "Apoiar grupos infantis de coco, maracatu, frevo e ciranda no interior do estado.", "meta": "Preservação da cultura popular entre os pequenos"},
+    {"id": 249, "eixo": "15. Criança e Adolescente", "nicho": "Combate ao Bullying", "texto": "Implantar equipes de mediação de conflitos e círculos restaurativos nas escolas municipais e estaduais.", "meta": "Ambiente escolar sem violência ou discriminação"},
+    {"id": 250, "eixo": "15. Criança e Adolescente", "nicho": "Crianças Hospitalizadas", "texto": "Garantir brinquedotecas e pedagogos hospitalares nas alas pediátricas do SUS.", "meta": "Humanização do internamento infantil"},
+    {"id": 251, "eixo": "15. Criança e Adolescente", "nicho": "Educação no Trânsito", "texto": "Criar a Cidade do Trânsito Infantil itinerante com aulas práticas de cidadania viária.", "meta": "Formação de futuros pedestres e motoristas conscientes"},
+    {"id": 252, "eixo": "15. Criança e Adolescente", "nicho": "Crianças Indígenas e Quilombolas", "texto": "Garantir parques e brinquedos adequados nas aldeias e territórios tradicionais.", "meta": "Lazer e respeito ao modo de vida tradicional"},
+    {"id": 253, "eixo": "15. Criança e Adolescente", "nicho": "Orçamento da Criança", "texto": "Criar o Orçamento Criança e Adolescente (OCA) no Portal da Transparência.", "meta": "Fiscalização clara dos gastos estaduais com a infância"},
+    {"id": 254, "eixo": "15. Criança e Adolescente", "nicho": "Participação Infantil", "texto": "Realizar o Congresso Estadual das Crianças para escuta direta das demandas dos pequenos sobre as cidades.", "meta": "Direito à voz e participação cidadã desde a infância"}
+  ];
+
   const KEYWORDS_JOAO = [
     { word: 'Garantia de Direitos', tagClass: 'tag-hero' },
     { word: 'Educação', tagClass: 'tag-hero' },
@@ -670,6 +942,18 @@
     { word: 'COMPESA', tagClass: '' }
   ];
 
+  const KEYWORDS_IVAN = [
+    { word: 'Segurança Pública', tagClass: 'tag-hero' },
+    { word: 'Políticas Mulheres', tagClass: 'tag-hero' },
+    { word: 'Criança e Adolescente', tagClass: 'tag-hero' },
+    { word: 'Saúde & Drogas', tagClass: '' },
+    { word: 'Redução de Danos', tagClass: '' },
+    { word: 'SUS', tagClass: '' },
+    { word: 'Passe Livre', tagClass: '' },
+    { word: 'LGBTQIAPN+', tagClass: '' },
+    { word: 'Comunidades Tradicionais', tagClass: '' }
+  ];
+
   let currentCandidate = 'joao';
   let currentTab = 'overview';
   let filterEixo = 'TODOS';
@@ -677,10 +961,20 @@
   let chartInstance = null;
   let searchDebounceTimer = null;
 
+  function getCurrentDataset() {
+    if (currentCandidate === 'joao') return DATA_JOAO;
+    if (currentCandidate === 'ivan') return DATA_IVAN;
+    return [];
+  }
+
   function selectCandidate(candKey) {
     currentCandidate = candKey;
+    filterEixo = 'TODOS';
+    filterSearch = '';
+
     document.querySelectorAll('.cand-card').forEach(c => c.classList.remove('active'));
     document.getElementById(`cand-${candKey}`).classList.add('active');
+    
     render();
   }
 
@@ -696,12 +990,12 @@
     switchTab('propostas');
   }
 
-  // Função isolada de renderização rápida da lista sem recriar o input
   function renderListOnly() {
     const listContainer = document.getElementById('propostas-list');
     if (!listContainer) return;
 
-    const filtered = DATA_JOAO.filter(item => {
+    const data = getCurrentDataset();
+    const filtered = data.filter(item => {
       const matchEixo = (filterEixo === 'TODOS') || (item.eixo === filterEixo);
       const searchBlob = (item.texto + ' ' + item.nicho + ' ' + item.meta + ' ' + item.eixo).toLowerCase();
       const matchSearch = !filterSearch || searchBlob.includes(filterSearch.toLowerCase());
@@ -736,42 +1030,50 @@
   function render() {
     const container = document.getElementById('view-container');
     const footerCount = document.getElementById('footer-count');
+    const tabPropostasBtn = document.getElementById('tab-propostas');
 
-    if (currentCandidate !== 'joao') {
-      const nome = currentCandidate === 'raquel' ? 'Raquel Lyra' : 'Ivan Moraes';
+    if (currentCandidate === 'raquel') {
       container.innerHTML = `
         <div class="empty-state">
           <h3>Plano de Governo em Atualização</h3>
-          <p>A pré-candidatura de <strong>${nome}</strong> ainda não disponibilizou o conjunto exaustivo de propostas no formato de dados abertos para este painel.</p>
+          <p>A pré-candidatura de <strong>Raquel Lyra</strong> ainda não disponibilizou o conjunto exaustivo de propostas no formato de dados abertos para este painel.</p>
           <div class="notice-box">
             <strong>Critério Editorial Jamildo.com:</strong> O portal acompanha diariamente os registros formais na Justiça Eleitoral. Assim que os dados forem consolidados, serão cadastrados imediatamente.
           </div>
         </div>
       `;
       footerCount.textContent = 'Exibindo 0 propostas';
+      tabPropostasBtn.textContent = '🔍 Todas as Propostas (0)';
       return;
     }
 
-    footerCount.textContent = `Total carregado: ${DATA_JOAO.length} propostas oficiais`;
+    const data = getCurrentDataset();
+    footerCount.textContent = `Total carregado: ${data.length} propostas oficiais`;
+    tabPropostasBtn.textContent = `🔍 Todas as Propostas (${data.length})`;
 
     if (currentTab === 'overview') {
-      // Contagem por Eixo
       const counts = {};
-      DATA_JOAO.forEach(item => {
+      data.forEach(item => {
         counts[item.eixo] = (counts[item.eixo] || 0) + 1;
       });
 
-      let cloudHtml = KEYWORDS_JOAO.map(k => 
+      const keywords = currentCandidate === 'joao' ? KEYWORDS_JOAO : KEYWORDS_IVAN;
+      let cloudHtml = keywords.map(k => 
         `<span class="cloud-tag ${k.tagClass}" onclick="filterByKeyword('${k.word}')">${k.word}</span>`
       ).join('');
+
+      let analysisText = "";
+      if (currentCandidate === 'joao') {
+        analysisText = `No plano completo de <strong>João Campos</strong> (178 propostas divididas em 15 eixos), os maiores volumes de compromissos estão concentrados em <strong>Garantia de Direitos (34 propostas)</strong>, <strong>Educação e Esportes (27)</strong>, <strong>Desenvolvimento Social (21)</strong>, <strong>Saúde (20)</strong> e <strong>Segurança Cidadã (16)</strong>.`;
+      } else {
+        analysisText = `No plano completo de <strong>Ivan Moraes</strong> (254 propostas divididas em 15 eixos), os maiores destaques estão em <strong>Segurança Pública (41 propostas)</strong>, <strong>Políticas para Mulheres (30)</strong>, <strong>Saúde e Políticas de Drogas (24)</strong>, <strong>Criança e Adolescente (24)</strong> e <strong>Economia (20)</strong>.`;
+      }
 
       container.innerHTML = `
         <!-- Análise Editorial Automatizada -->
         <div class="analysis-card">
           <h3>Análise do Plano de Governo</h3>
-          <p>
-            No plano completo de <strong>João Campos</strong> (178 propostas divididas em 15 eixos), os maiores volumes de compromissos estão concentrados em <strong>Garantia de Direitos (34 propostas)</strong>, <strong>Educação e Esportes (27)</strong>, <strong>Desenvolvimento Social (21)</strong>, <strong>Saúde (20)</strong> e <strong>Segurança Cidadã (16)</strong>.
-          </p>
+          <p>${analysisText}</p>
         </div>
 
         <div class="section-box">
@@ -851,8 +1153,8 @@
       }, 50);
 
     } else {
-      // Aba "Todas as Propostas (178)"
-      const eixosUnicos = ['TODOS', ...new Set(DATA_JOAO.map(i => i.eixo))];
+      // Aba "Todas as Propostas"
+      const eixosUnicos = ['TODOS', ...new Set(data.map(i => i.eixo))];
       let optionsHtml = eixosUnicos.map(e => 
         `<option value="${e}" ${filterEixo === e ? 'selected' : ''}>${e}</option>`
       ).join('');
@@ -861,7 +1163,7 @@
         <div class="controls-bar">
           <div class="search-wrap">
             <svg class="search-icon" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 3,9.5M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/></svg>
-            <input type="text" id="srch" placeholder="Buscar palavra nas 178 propostas..." value="${filterSearch}" oninput="onSearchInput(this.value)">
+            <input type="text" id="srch" placeholder="Buscar palavra nas ${data.length} propostas..." value="${filterSearch}" oninput="onSearchInput(this.value)">
           </div>
           <select class="select-eixo" onchange="filterEixo=this.value; renderListOnly();">${optionsHtml}</select>
         </div>
