@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Geral de Propostas - Jamildo.com</title>
+  
+  <!-- Fonts & Chart.js -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: #012856;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Container 600x600 fixo */
+    #dashboard {
+      width: 600px;
+      height: 600px;
+      background: #f8fafc;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    /* Header Jamildo.com */
+    header {
+      background: linear-gradient(135deg, #024796 0%, #011d42 100%);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 3.5px solid #f83d03;
+      height: 56px;
+      flex-shrink: 0;
+    }
+
+    header img.logo {
+      height: 30px;
+      object-fit: contain;
+    }
+
+    .header-title {
+      text-align: right;
+      color: #ffffff;
+    }
+
+    .header-title h1 {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .header-title span {
+      color: #f83d03;
+      font-size: 9.5px;
+      font-weight: 700;
+      display: block;
+    }
+
+    /* Candidatos Bar */
+    .candidatos-bar {
+      background: #ffffff;
+      padding: 8px 12px;
+      display: flex;
+      gap: 8px;
+      justify-content: space-between;
+      border-bottom: 1px solid #e2e8f0;
+      height: 74px;
+      flex-shrink: 0;
+    }
+
+    .cand-card {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f8fafc;
+      padding: 5px 8px;
+      border-radius: 35px;
+      border: 2px solid #e2e8f0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .cand-card:hover {
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+
+    .cand-card.active {
+      border-color: #f83d03;
+      background: #fff8f6;
+      box-shadow: 0 4px 10px rgba(248, 61, 3, 0.12);
+    }
+
+    .cand-foto {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #024796;
+      background: #cbd5e1;
+      flex-shrink: 0;
+    }
+
+    .cand-details {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .cand-nome {
+      font-size: 11px;
+      font-weight: 700;
+      color: #024796;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cand-tag {
+      font-size: 8px;
+      font-weight: 700;
+      padding: 2px 5px;
+      border-radius: 8px;
+      margin-top: 2px;
+      width: fit-content;
+    }
+
+    .tag-active { background: #dcfce7; color: #15803d; }
+    .tag-pending { background: #fef3c7; color: #b45309; }
+
+    /* Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      background: #e2e8f0;
+      padding: 3px 10px;
+      gap: 6px;
+      height: 34px;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 4px 0;
+      border: none;
+      background: transparent;
+      font-size: 10px;
+      font-weight: 700;
+      color: #475569;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: #ffffff;
+      color: #024796;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+
+    /* Views Area */
+    .view-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .view-container::-webkit-scrollbar { width: 4px; }
+    .view-container::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+    /* Controls Bar */
+    .controls-bar {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .search-wrap {
+      flex: 1;
+      position: relative;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 6px 10px 6px 26px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 10.5px;
+      outline: none;
+      background: #ffffff;
+    }
+
+    .search-wrap input:focus { border-color: #024796; }
+
+    .search-icon {
+      position: absolute;
+      left: 7px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 13px;
+      height: 13px;
+      fill: #94a3b8;
+    }
+
+    .select-eixo {
+      width: 44%;
+      padding: 6px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #334155;
+      background: #ffffff;
+      outline: none;
+    }
+
+    /* Section Component */
+    .section-box {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 8px 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .box-header {
+      font-size: 10px;
+      font-weight: 800;
+      color: #024796;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Análise Editorial */
+    .analysis-card {
+      background: #024796;
+      color: #ffffff;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border-left: 4px solid #f83d03;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .analysis-card h3 {
+      font-size: 9.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #f83d03;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .analysis-card p {
+      font-size: 10.5px;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    .cloud-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .cloud-tag {
+      background: #f1f5f9;
+      color: #024796;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid #e2e8f0;
+      font-size: 9.5px;
+    }
+
+    .cloud-tag:hover {
+      background: #f83d03;
+      color: #ffffff;
+      border-color: #f83d03;
+    }
+
+    .tag-hero { background: #eff6ff; font-weight: 800; border-color: #bfdbfe; }
+
+    /* Chart Canvas Container */
+    .chart-box {
+      position: relative;
+      height: 140px;
+      width: 100%;
+    }
+
+    /* Cards Propostas */
+    .prop-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-left: 3.5px solid #f83d03;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 6px;
+    }
+
+    .prop-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .prop-badge {
+      font-size: 8.5px;
+      font-weight: 800;
+      color: #024796;
+      background: #eff6ff;
+      padding: 2px 5px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .prop-nicho {
+      font-size: 8.5px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .prop-desc {
+      font-size: 10.5px;
+      color: #1e293b;
+      line-height: 1.35;
+      margin-bottom: 5px;
+    }
+
+    .prop-meta {
+      font-size: 9px;
+      color: #c2410c;
+      background: #fff7ed;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* State Boxes */
+    .empty-state {
+      text-align: center;
+      padding: 20px 14px;
+      color: #64748b;
+    }
+
+    .empty-state h3 {
+      font-size: 13px;
+      color: #024796;
+      margin-bottom: 4px;
+    }
+
+    .empty-state p { font-size: 10.5px; line-height: 1.4; }
+
+    .notice-box {
+      margin-top: 10px;
+      background: #fffbeb;
+      border: 1px solid #fef3c7;
+      color: #92400e;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 9px;
+      text-align: left;
+      line-height: 1.3;
+    }
+
+    /* Footer */
+    footer {
+      background: #ffffff;
+      padding: 5px 12px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 9px;
+      color: #64748b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 28px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div id="dashboard">
+  <!-- Header Jamildo.com -->
+  <header>
+    <img src="https://jamildo.com/media/uploads/brancologojamildo_6xe6mA0.png" alt="Jamildo.com" class="logo">
+    <div class="header-title">
+      <h1>Painel das Eleições</h1>
+      <span>Comparador Oficial de Propostas</span>
+    </div>
+  </header>
+
+  <!-- Seção Candidatos -->
+  <div class="candidatos-bar">
+    <div class="cand-card active" onclick="selectCandidate('joao')" id="cand-joao">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Jo%C3%A3o_Campos_em_2023.jpg/300px-Jo%C3%A3o_Campos_em_2023.jpg" class="cand-foto" alt="João Campos" onerror="this.src='https://via.placeholder.com/38?text=JC'">
+      <div class="cand-details">
+        <span class="cand-nome">João Campos</span>
+        <span class="cand-tag tag-active">178 Propostas</span>
+      </div>
+    </div>
+
+    <div class="cand-card" onclick="selectCandidate('raquel')" id="cand-raquel">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Raquel_Lyra_em_2023.jpg/300px-Raquel_Lyra_em_2023.jpg" class="cand-foto" alt="Raquel Lyra" onerror="this.src='https://via.placeholder.com/38?text=RL'">
+      <div class="cand-details">
+        <span class="cand-nome">Raquel Lyra</span>
+        <span class="cand-tag tag-pending">Aguardando</span>
+      </div>
+    </div>
+
+    <div class="cand-card" onclick="selectCandidate('ivan')" id="cand-ivan">
+      <img src="https://via.placeholder.com/38/024796/FFFFFF?text=IM" class="cand-foto" alt="Ivan Moraes">
+      <div class="cand-details">
+        <span class="cand-nome">Ivan Moraes</span>
+        <span class="cand-tag tag-pending">Aguardando</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Abas de Navegação -->
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="switchTab('overview')" id="tab-overview">📊 Visão Geral & Gráficos</button>
+    <button class="tab-btn" onclick="switchTab('propostas')" id="tab-propostas">🔍 Todas as Propostas (178)</button>
+  </div>
+
+  <!-- Área Principal -->
+  <div class="view-container" id="view-container"></div>
+
+  <!-- Rodapé -->
+  <footer>
+    <span id="footer-count">Carregando dados...</span>
+    <span>*Candidatos com representação na Câmara</span>
+  </footer>
+</div>
+
+<script>
+  // TODAS AS 178 PROPOSTAS REAIS IMPORTADAS DO NOVO PLANO EXCEL
+  const DATA_JOAO = [
+    {"id": 1, "eixo": "1. Desenv. Social", "nicho": "Geral / Extrema Pobreza", "texto": "Ampliar a rede socioassistencial e capacitar municípios no acolhimento de famílias em extrema pobreza.", "meta": "Articulação de rede e fortalecimento de municípios"},
+    {"id": 2, "eixo": "1. Desenv. Social", "nicho": "Vulneráveis / Trabalho", "texto": "Fomentar estratégias de promoção da autonomia através de educação qualificada, trabalho digno e sustentabilidade.", "meta": "Foco em emancipação e geração de autonomia"},
+    {"id": 3, "eixo": "1. Desenv. Social", "nicho": "Geral", "texto": "Articular governança transversal com saúde, educação, habitação, segurança alimentar e trabalho.", "meta": "Redução intersetorial de desigualdades"},
+    {"id": 4, "eixo": "1. Desenv. Social", "nicho": "Entregadores / Trabalhadores", "texto": "Criar política de isenção de IPVA para motocicletas de até 180 cilindradas para trabalhadores de aplicativo.", "meta": "IPVA zero para motos de até 180cc"},
+    {"id": 5, "eixo": "1. Desenv. Social", "nicho": "Trabalhadores de App", "texto": "Expansão da rede de Pontos de Apoio aos Entregadores com descanso, água, banheiro, internet e carregamento.", "meta": "Estrutura básica de apoio descentralizada"},
+    {"id": 6, "eixo": "1. Desenv. Social", "nicho": "Baixa Renda / Saneamento", "texto": "Justiça tarifária na Compesa: isenção de tarifa mínima de água/esgoto para beneficiários da Tarifa Social sob rodízio.", "meta": "Isenção em áreas com rodízio de água"},
+    {"id": 7, "eixo": "1. Desenv. Social", "nicho": "Consumidores / Compesa", "texto": "Tarifação pelo consumo efetivo real de água (sem tarifa mínima) para consumos de até 10m³ fora da Tarifa Social em áreas de rodízio.", "meta": "Até 10 m³ medidos pelo volume real"},
+    {"id": 8, "eixo": "1. Desenv. Social", "nicho": "Jovens Vulneráveis", "texto": "Programa de inserção e conexão de jovens à aprendizagem profissional de forma individualizada com acompanhamento.", "meta": "Preparação individualizada e monitorada"},
+    {"id": 9, "eixo": "1. Desenv. Social", "nicho": "Municípios / Assistência", "texto": "Implantar e modernizar as Gerências Regionais de Assistência Social no modelo do SUAS em Pernambuco.", "meta": "Estrutura descentralizada de gestão"},
+    {"id": 10, "eixo": "1. Desenv. Social", "nicho": "Servidores do SUAS", "texto": "Fortalecer e descentralizar a Escola de Formação dos Trabalhadores do SUAS.", "meta": "Formação e valorização contínua"},
+    {"id": 11, "eixo": "1. Desenv. Social", "nicho": "População Rural / Periferia", "texto": "Ampliar a cobertura dos CRAS nas comunidades rurais, periféricas e de difícil acesso.", "meta": "Atendimento descentralizado a comunidades isoladas"},
+    {"id": 12, "eixo": "1. Desenv. Social", "nicho": "Assistência / Gestão", "texto": "Aumentar cofinanciamento estadual para implantação municipal de CRAS, CREAS e Centros Pop.", "meta": "Apoio orçamentário municipal direto"},
+    {"id": 13, "eixo": "1. Desenv. Social", "nicho": "Pessoas Idosas e PcD", "texto": "Incentivar criação de rede de Centros Dia organizada em polos estratégicos de Pernambuco.", "meta": "Polos regionais de atendimento especializado"},
+    {"id": 14, "eixo": "1. Desenv. Social", "nicho": "Diversidades / Vulneráveis", "texto": "Incentivar rede de Centros de Direitos Humanos para População de Rua, LGBTQIAPN+, quilombolas e indígenas.", "meta": "Acolhimento integrado de direitos"},
+    {"id": 15, "eixo": "1. Desenv. Social", "nicho": "Trabalhadores Rurais / Pesca", "texto": "Ampliar e desburocratizar o Programa Chapéu de Palha, garantindo transferência e qualificação na entressafra.", "meta": "Benefício elevado para meio salário-mínimo + cursos"},
+    {"id": 16, "eixo": "1. Desenv. Social", "nicho": "Idosos e PcD Mobilidade", "texto": "Ampliar, com municípios, acompanhamento domiciliar de idosos e PcD com limitações severas.", "meta": "Visitas domiciliares de assistência"},
+    {"id": 17, "eixo": "1. Desenv. Social", "nicho": "Segurança Alimentar", "texto": "Fomentar rede de Bancos de Alimentos no Estado e expansão de cozinhas comunitárias.", "meta": "Financiamento direto e apoio técnico estadual"},
+    {"id": 18, "eixo": "1. Desenv. Social", "nicho": "Segurança Alimentar", "texto": "Criar rede de Centros de Referência em Segurança Alimentar e Nutricional (CRESAN).", "meta": "Baseado no modelo pioneiro implantado em Recife"},
+    {"id": 19, "eixo": "1. Desenv. Social", "nicho": "Pop em Situação de Rua", "texto": "Implantar programa estadual para pop em situação de rua: acolhimento, higiene, alimentação e moradia assistida.", "meta": "Cofinanciamento de frentes produtivas e abrigos"},
+    {"id": 20, "eixo": "1. Desenv. Social", "nicho": "Mães e Crianças", "texto": "Retomar, expandir e criar programas de transferência de renda em sintonia com os programas federais.", "meta": "Retirada do país do Mapa da Fome (FAO)"},
+    {"id": 21, "eixo": "1. Desenv. Social", "nicho": "Tratamento de Drogas", "texto": "Recuperar o Programa Atitude, ampliar Centros de Acolhimento, moradias temporárias e equipes itinerantes.", "meta": "Financiamento restabelecido do programa de Eduardo Campos"},
+
+    {"id": 22, "eixo": "2. Educação e Esportes", "nicho": "Geral", "texto": "Fortalecer escola pública estadual, ampliando o tempo integral, infraestrutura e valorização.", "meta": "Foco em equidade e qualidade de ensino"},
+    {"id": 23, "eixo": "2. Educação e Esportes", "nicho": "Estudantes", "texto": "Garantir trajetória completa da primeira infância à creche, ensino técnico, superior e emprego.", "meta": "Acompanhamento integral do estudante pelo Estado"},
+    {"id": 24, "eixo": "2. Educação e Esportes", "nicho": "Jovens do Interior", "texto": "Interiorizar acesso à educação técnica e superior integrando aos arranjos produtivos regionais.", "meta": "Fixação de talentos em seus territórios"},
+    {"id": 25, "eixo": "2. Educação e Esportes", "nicho": "Estudantes / Atletas", "texto": "Fortalecer o esporte como ferramenta escolar de formação, com apoio a atletas e paratletas.", "meta": "Integração pedagógica do esporte"},
+    {"id": 26, "eixo": "2. Educação e Esportes", "nicho": "Alunos PcD / TEA", "texto": "Fortalecer educação especial inclusiva para estudantes com deficiência, TEA e neurodesenvolvimento.", "meta": "Articulação estreita com as famílias e rede de saúde"},
+    {"id": 27, "eixo": "2. Educação e Esportes", "nicho": "Diversidades", "texto": "Promover educação antirracista nas salas de aula e respeito a escolas quilombolas e indígenas.", "meta": "Acessibilidade pedagógica e valorização histórica"},
+    {"id": 28, "eixo": "2. Educação e Esportes", "nicho": "Crianças / Creches", "texto": "Implantar novas creches em parceria com prefeituras municipais e concluir obras paralisadas.", "meta": "Apoio técnico, financeiro e pedagógico"},
+    {"id": 29, "eixo": "2. Educação e Esportes", "nicho": "Crianças", "texto": "Fortalecer política estadual de alfabetização na idade certa em colaboração municipal.", "meta": "Apoio financeiro e pedagógico direto"},
+    {"id": 30, "eixo": "2. Educação e Esportes", "nicho": "Fundamental II", "texto": "Ampliar a oferta de tempo integral nos Anos Finais do Ensino Fundamental.", "meta": "Cooperação ativa entre Estado e municípios"},
+    {"id": 31, "eixo": "2. Educação e Esportes", "nicho": "Ensino Médio", "texto": "Universalizar a oferta do Ensino Médio em tempo integral em Pernambuco.", "meta": "Retomada do protagonismo nacional de tempo integral"},
+    {"id": 32, "eixo": "2. Educação e Esportes", "nicho": "Ensino Médio", "texto": "Educação profissional integrada ao Ensino Médio alinhada às vocações econômicas e língua inglesa.", "meta": "Preparação prática voltada ao mundo do trabalho"},
+    {"id": 33, "eixo": "2. Educação e Esportes", "nicho": "Profissionais de Educação", "texto": "Criar centros de formação continuada para os profissionais e professores estaduais.", "meta": "Foco em novos modelos didáticos e de aprendizagem"},
+    {"id": 34, "eixo": "2. Educação e Esportes", "nicho": "Geral", "texto": "Fortalecer a gestão democrática das escolas públicas da rede estadual.", "meta": "Gestão participativa focada em resultados"},
+    {"id": 35, "eixo": "2. Educação e Esportes", "nicho": "Ensino Técnico (ETEs)", "texto": "Modernizar as ETEs com laboratórios avançados, simuladores, novos softwares e ensino de inglês.", "meta": "Formação prática qualificada"},
+    {"id": 36, "eixo": "2. Educação e Esportes", "nicho": "Universitários", "texto": "Continuar e consolidar a interiorização da Universidade de Pernambuco (UPE).", "meta": "Cursos de nível superior alinhados às vocações locais"},
+    {"id": 37, "eixo": "2. Educação e Esportes", "nicho": "Agreste / Moda", "texto": "Implantar o Campus UPE da Moda em Caruaru com foco em tecnologia têxtil e moda regional.", "meta": "Convênios de internacionalização com centros externos"},
+    {"id": 38, "eixo": "2. Educação e Esportes", "nicho": "Jovens do Interior", "texto": "Expandir o programa Embarque Digital para o interior do estado com polos de formação tecnológica.", "meta": "Meta: Oferta de 10.000 vagas em 4 anos"},
+    {"id": 39, "eixo": "2. Educação e Esportes", "nicho": "Estudantes Públicos", "texto": "Retomar o Programa Ganhe o Mundo, garantindo intercâmbios anuais regulares.", "meta": "Viagem de intercâmbio com bolsa de permanência"},
+    {"id": 40, "eixo": "2. Educação e Esportes", "nicho": "Estudantes Técnicos", "texto": "Articular expansão de novas unidades do IFPE junto ao Governo Federal.", "meta": "Conexão direta com arranjos locais"},
+    {"id": 41, "eixo": "2. Educação e Esportes", "nicho": "Cientistas / Tecnologia", "texto": "Articular escola federal de excelência em Pernambuco (nos moldes de ITA, IMPA ou IME).", "meta": "Capacitação de altíssimo nível em engenharias e ciência"},
+    {"id": 42, "eixo": "2. Educação e Esportes", "nicho": "Universitários", "texto": "Garantir a instalação e consolidação dos campi definitivos da UFRPE no Cabo e em Belo Jardim.", "meta": "Expansão da rede federal de ensino superior"},
+    {"id": 43, "eixo": "2. Educação e Esportes", "nicho": "Estudantes", "texto": "Criar o Brinca Pernambuco: colônias de férias escolares gratuitas durante os recessos.", "meta": "Esportes, cultura e lazer gratuitos"},
+    {"id": 44, "eixo": "2. Educação e Esportes", "nicho": "Atletas / Esporte", "texto": "Fortalecer Bolsa Atleta com reajustes de valores e nova categoria para talentos escolares carentes.", "meta": "Atualização orçamentária do programa esportivo"},
+    {"id": 45, "eixo": "2. Educação e Esportes", "nicho": "Associações / Projetos", "texto": "Política de gestão compartilhada e ocupação gratuita de quadras e equipamentos ociosos do Estado.", "meta": "Uso comunitário de bens ociosos com suporte técnico"},
+    {"id": 46, "eixo": "2. Educação e Esportes", "nicho": "Periferias", "texto": "Financiar conversão de áreas públicas degradadas e terrenos ociosos em pequenos núcleos esportivos.", "meta": "Baixo custo e foco em lazer comunitário"},
+    {"id": 47, "eixo": "2. Educação e Esportes", "nicho": "Estudantes / Escolas", "texto": "Climatização total das salas de aula e requalificação da infraestrutura física escolar.", "meta": "Instalação de ar-condicionado em todas as escolas"},
+    {"id": 48, "eixo": "2. Educação e Esportes", "nicho": "Estudantes Evasão", "texto": "Combater a evasão com redes tecnológicas integradas, transporte escolar qualificado e auxílios permanência.", "meta": "Rede de educação tecnológica modelo Recife"},
+
+    {"id": 49, "eixo": "3. Saúde", "nicho": "Geral / Servidores", "texto": "Fortalecer o SUS valorizando os profissionais e consolidando a regionalização na rede própria.", "meta": "Privilegiar infraestrutura pública e própria do estado"},
+    {"id": 50, "eixo": "3. Saúde", "nicho": "População do Interior", "texto": "Construir novos hospitais gerais e de alta complexidade no interior de Pernambuco.", "meta": "Encurtar distâncias de tratamento especializado"},
+    {"id": 51, "eixo": "3. Saúde", "nicho": "Agreste / Crianças", "texto": "Implantar o Hospital da Criança do Agreste, em Caruaru.", "meta": "Odonto, exames, internação, UTI pediátrica e Centro TEA"},
+    {"id": 52, "eixo": "3. Saúde", "nicho": "Sertão / Macrorregião", "texto": "Implantar novo Hospital em Petrolina focado em trauma, cardiologia e neurologia de alta complexidade.", "meta": "Atendimento macrorregional especializado no Sertão"},
+    {"id": 53, "eixo": "3. Saúde", "nicho": "Interior", "texto": "Fortalecer hospitais regionais existentes para expandir procedimentos cirúrgicos complexos.", "meta": "Menor dependência de hospitais da RMR"},
+    {"id": 54, "eixo": "3. Saúde", "nicho": "Especialidades / Exames", "texto": "Fortalecer e descentralizar as UPAEs para consultas com especialistas e diagnósticos rápidos.", "meta": "Atenção médica ambulatorial regionalizada"},
+    {"id": 55, "eixo": "3. Saúde", "nicho": "Médicos", "texto": "Implantar Política de Fixação de Médicos em parceria com Mais Médicos e residências da UPE.", "meta": "Suporte de bolsas e infraestrutura no interior"},
+    {"id": 56, "eixo": "3. Saúde", "nicho": "Gestantes", "texto": "Garantir assistência integral materno-infantil com direito ao parto seguro próximo de casa.", "meta": "Ampliação de maternidades descentralizadas"},
+    {"id": 57, "eixo": "3. Saúde", "nicho": "Pacientes Psiquiátricos / Crônicos", "texto": "Implementar consultas especializadas de telessaúde (Saúde Mental, cardiologia, nutrição).", "meta": "Telemedicina aplicada a especialidades e crônicos"},
+    {"id": 58, "eixo": "3. Saúde", "nicho": "População Rural / Postos", "texto": "Implantar cabines de teleconsultas em unidades básicas de saúde conectadas a exames eletrônicos.", "meta": "Redução de deslocamentos e filas de espera no interior"},
+    {"id": 59, "eixo": "3. Saúde", "nicho": "Usuários do SUS", "texto": "Criar plataforma digital integrada do SUS para confirmar, cancelar ou reagendar consultas.", "meta": "Gestão digital para mitigar absenteísmo"},
+    {"id": 60, "eixo": "3. Saúde", "nicho": "Fila de Espera", "texto": "Implantar sistema de gestão unificada de regulação de filas por Inteligência Artificial.", "meta": "IA para classificação de risco real sem filas paralelas"},
+    {"id": 61, "eixo": "3. Saúde", "nicho": "Geral", "texto": "Criar o Centro Estadual de Comando e Navegação do Paciente para monitorar leitos em tempo real.", "meta": "Centralização e navegação ativa do paciente no SUS"},
+    {"id": 62, "eixo": "3. Saúde", "nicho": "Gestantes / Puérperas", "texto": "Criar o programa Atende Gestante Pernambuco com orientação de obstetras 24 horas por dia por telefone/vídeo.", "meta": "Apoio telefônico e digital obstétrico 24h"},
+    {"id": 63, "eixo": "3. Saúde", "nicho": "Mães e Bebês", "texto": "Fortalecer e expandir o programa Mãe Coruja em todas as macrorregiões do estado.", "meta": "Acompanhamento integral do pré-natal ao pós-parto"},
+    {"id": 64, "eixo": "3. Saúde", "nicho": "Famílias de Autistas", "texto": "Criar o programa Mãe Coruja Atípica para atendimento de saúde, direitos e benefícios para crianças TEA.", "meta": "Apoio transversal em neurodesenvolvimento"},
+    {"id": 65, "eixo": "3. Saúde", "nicho": "Idosos e Crônicos", "texto": "Fortalecer Farmácia do Estado para entrega domiciliar programada de remédios contínuos.", "meta": "Entrega domiciliar gratuita de medicação contínua"},
+    {"id": 66, "eixo": "3. Saúde", "nicho": "Famílias Sem Posto", "texto": "Expandir Estratégia de Saúde da Família e atenção primária em áreas remotas e vazios de cobertura.", "meta": "Apoio financeiro aos municípios"},
+    {"id": 67, "eixo": "3. Saúde", "nicho": "Odontologia", "texto": "Estruturar Política de Fortalecimento da Saúde Bucal de Pernambuco (médicos, cadeiras, insumos).", "meta": "Recomposição de equipes e infraestrutura dentária"},
+    {"id": 68, "eixo": "3. Saúde", "nicho": "Saúde Mental", "texto": "Expandir a Rede Psicossocial (RAPS) financiando CAPS estaduais 24 horas.", "meta": "Suporte de emergência e centros de convivência"},
+
+    {"id": 69, "eixo": "4. Segurança Cidadã", "nicho": "Geral", "texto": "Combater facções e impunidade, valorizando e ampliando a capacidade das polícias civil/militar.", "meta": "Foco em operações integradas e proteção"},
+    {"id": 70, "eixo": "4. Segurança Cidadã", "nicho": "Profissionais Segurança", "texto": "Instituir mesa de diálogo permanente com sindicatos e associações policiais (carreiras e formação).", "meta": "Mesa de diálogo permanente e valorização"},
+    {"id": 71, "eixo": "4. Segurança Cidadã", "nicho": "Geral", "texto": "Retomar o comando da segurança sob liderança direta do governador com metas regionais territoriais.", "meta": "Retomada do modelo de gestão do Pacto Pela Vida"},
+    {"id": 72, "eixo": "4. Segurança Cidadã", "nicho": "Comunidades", "texto": "Aumentar a presença ostensiva policial nos bairros e interior do estado.", "meta": "Aproximação comunitária das forças"},
+    {"id": 73, "eixo": "4. Segurança Cidadã", "nicho": "Mulheres Vítimas", "texto": "Fortalecer atendimento e proteção integrada a mulheres vítimas de agressões.", "meta": "Redes integradas de resposta rápida"},
+    {"id": 74, "eixo": "4. Segurança Cidadã", "nicho": "Presos / Egressos", "texto": "Requalificar o sistema penitenciário focando em trabalho, oficinas de profissionalização e educação.", "meta": "Redução de reincidência por ressocialização real"},
+    {"id": 75, "eixo": "4. Segurança Cidadã", "nicho": "Policiamento", "texto": "Implantar Cultura de Polícia Inteligente que direcione as guarnições com precisão de dados.", "meta": "Operações orientadas a inteligência estatística"},
+    {"id": 76, "eixo": "4. Segurança Cidadã", "nicho": "Região Metropolitana", "texto": "Implantar o Centro de Operações Metropolitano de Pernambuco.", "meta": "Inspirado no modelo integrado do COP do Recife"},
+    {"id": 77, "eixo": "4. Segurança Cidadã", "nicho": "Segurança", "texto": "Criar o Pacto Anti-Facção com foco na desarticulação financeira de crimes estruturados.", "meta": "Interferência nas fontes de renda de facções"},
+    {"id": 78, "eixo": "4. Segurança Cidadã", "nicho": "Combate ao Tráfico", "texto": "Concentrar o DENARC no combate ao tráfico financeiro, com núcleos e bases regionais novas.", "meta": "Ações focadas nas estruturas de distribuição"},
+    {"id": 79, "eixo": "4. Segurança Cidadã", "nicho": "Crime Interestadual", "texto": "Cooperação ativa com a FICCO/PE, Polícia Federal, PRF, Receita Federal, Coaf e Inteligência.", "meta": "Combate a crimes que ultrapassam fronteiras estaduais"},
+    {"id": 80, "eixo": "4. Segurança Cidadã", "nicho": "Fronteiras / Divisas", "texto": "Programa de monitoramento digital nas rodovias e divisas com leitura eletrônica de placas.", "meta": "Câmeras inteligentes e bases de rodovias"},
+    {"id": 81, "eixo": "4. Segurança Cidadã", "nicho": "Escolas / Bairros", "texto": "Retomar a Patrulha Escolar e o Patrulhamento Comunitário articulados com as prefeituras.", "meta": "Integração PM e guardas municipais locais"},
+    {"id": 82, "eixo": "4. Segurança Cidadã", "nicho": "Jovens e Periferias", "texto": "Construir e inaugurar novas unidades do COMPAZ na RMR e no interior do estado.", "meta": "Rede COMPAZ estadualizada para prevenção de crimes"},
+    {"id": 83, "eixo": "4. Segurança Cidadã", "nicho": "Região Metropolitana", "texto": "Estabelecer convênios de cooperação tática e de dados com as Guardas Municipais de 14 prefeituras.", "meta": "Troca de informações e resposta rápida a patrimônio"},
+    {"id": 84, "eixo": "4. Segurança Cidadã", "nicho": "Interior / Divisas", "texto": "Expandir atuação dos BIEsp e BEPI nas principais rodovias logísticas e divisas do interior.", "meta": "Reforço especializado contra crimes rurais e de carga"},
+
+    {"id": 85, "eixo": "5. Políticas Mulheres", "nicho": "Mulheres em Geral", "texto": "Garantir às mulheres o direito pleno de viver sem medo, combatendo violência doméstica nas regiões.", "meta": "Redes municipais integradas de acolhimento"},
+    {"id": 86, "eixo": "5. Políticas Mulheres", "nicho": "Empreendedoras", "texto": "Garantir programas de autonomia financeira, capacitação profissional e acesso ao crédito.", "meta": "Pernambuco Tá com Elas (crédito e capacitação)"},
+    {"id": 87, "eixo": "5. Políticas Mulheres", "nicho": "Mulheres em Geral", "texto": "Reduzir as disparidades estruturais, ampliando serviços de saúde, creche e rede de cuidado.", "meta": "Políticas de divisão equilibrada do trabalho doméstico"},
+    {"id": 88, "eixo": "5. Políticas Mulheres", "nicho": "Gestão Pública", "texto": "Implantar orçamento sensível ao gênero em todas as secretarias estaduais com metas específicas.", "meta": "Tornar a promoção de igualdade responsabilidade do Estado"},
+    {"id": 89, "eixo": "5. Políticas Mulheres", "nicho": "Mulheres em Geral", "texto": "Incentivar criação de rede de Centros de Promoção dos Direitos da Mulher.", "meta": "Hubs regionais de acolhimento e qualificação"},
+    {"id": 90, "eixo": "5. Políticas Mulheres", "nicho": "Mulheres Vítimas", "texto": "Expandir Delegacias da Mulher (DEAM) 24 horas no interior e associar equipes do DHPP.", "meta": "Atendimento policial feminino ininterrupto e especializado"},
+    {"id": 91, "eixo": "5. Políticas Mulheres", "nicho": "Mulheres Vítimas", "texto": "Ampliar e criar novas Salas Lilás em delegacias comuns, hospitais e assistência social.", "meta": "Ambientes acolhedores com protocolos humanizados"},
+    {"id": 92, "eixo": "5. Políticas Mulheres", "nicho": "Polícias Civis/Militar", "texto": "Instituir a Gratificação de Proteção à Mulher para policiais civis e militares das DEAMs e Salas Lilás.", "meta": "Incentivo financeiro para atuação especializada"},
+    {"id": 93, "eixo": "5. Políticas Mulheres", "nicho": "Saúde Feminina", "texto": "Ampliar e interiorizar Hospitais da Mulher, com atenção para endometriose, cânceres e mães atípicas.", "meta": "Hospitais especializados no Agreste, Sertão e Mata"},
+    {"id": 94, "eixo": "5. Políticas Mulheres", "nicho": "Trabalhadoras Rurais", "texto": "Ampliar o acesso de mulheres rurais e jovens agricultores a linhas de crédito agrícola e posse de terra.", "meta": "Fomento ao cooperativismo e autonomia produtiva"},
+
+    {"id": 95, "eixo": "6. Garantia de Direitos", "nicho": "Crianças e Adolescentes", "texto": "Fortalecer Conselhos Tutelares com apoio financeiro e capacitação contínua.", "meta": "Estruturação dos 184 municípios de Pernambuco"},
+    {"id": 96, "eixo": "6. Garantia de Direitos", "nicho": "Juventude", "texto": "Implantar a Rede de Centros de Juventude com cursos de capacitação e esportes no interior.", "meta": "Espaços integrados para desenvolvimento da juventude"},
+    {"id": 97, "eixo": "6. Garantia de Direitos", "nicho": "Pessoas com Deficiência", "texto": "Criar o Cartão Passe Livre Intermunicipal Digital para PcD.", "meta": "Desburocratização de emissão e renovação online"},
+    {"id": 98, "eixo": "6. Garantia de Direitos", "nicho": "TEA / Autismo", "texto": "Implementar Carteira de Identificação da Pessoa com Transtorno do Espectro Autista (CIPTEA).", "meta": "Emissão simplificada e prioritária em todo o estado"},
+    {"id": 99, "eixo": "6. Garantia de Direitos", "nicho": "População Idosa", "texto": "Criar a Patrulha de Proteção ao Idoso contra violência financeira e maus-tratos.", "meta": "Atendimento especializado em delegacias regionais"},
+    {"id": 100, "eixo": "6. Garantia de Direitos", "nicho": "LGBTQIAPN+", "texto": "Manter e expandir o Centro Estadual de Combate à Homofobia.", "meta": "Atendimento jurídico, social e psicológico regionalizado"},
+    {"id": 101, "eixo": "6. Garantia de Direitos", "nicho": "Igualdade Racial", "texto": "Criar o Plano Estadual de Enfrentamento ao Racismo Religioso e Institucional.", "meta": "Protocolos rígidos de apuração e combate à discriminação"},
+    {"id": 102, "eixo": "6. Garantia de Direitos", "nicho": "Comunidades Quilombolas", "texto": "Garantir saneamento básico, água e regularização fundiária para territórios quilombolas.", "meta": "Infraestrutura básica prioritária para povos tradicionais"},
+    {"id": 103, "eixo": "6. Garantia de Direitos", "nicho": "Povos Indígenas", "texto": "Apoiar a gestão territorial indígena e fortalecer a educação escolar indígena diferenciada.", "meta": "Respeito às tradições e autonomia territorial"},
+    {"id": 104, "eixo": "6. Garantia de Direitos", "nicho": "Cidadania Digital", "texto": "Instalar pontos de Wi-Fi gratuito nas praças centrais de todos os municípios de Pernambuco.", "meta": "Inclusão digital e acesso gratuito à rede pública"},
+    {"id": 105, "eixo": "6. Garantia de Direitos", "nicho": "Direitos Humanos", "texto": "Fortalecer o Programa de Proteção a Defensores dos Direitos Humanos (PPDDH).", "meta": "Garantia de segurança e integridade física de ativistas"},
+    {"id": 106, "eixo": "6. Garantia de Direitos", "nicho": "Consumidores", "texto": "Descentralizar o PROCON Estadual com novos postos fixos no Agreste e Sertão.", "meta": "Proteção ao consumidor em todas as macrorregiões"},
+    {"id": 107, "eixo": "6. Garantia de Direitos", "nicho": "Crianças Vulneráveis", "texto": "Ampliar o Programa de Erradicação do Trabalho Infantil com busca ativa nas feiras livres.", "meta": "Canais permanentes de denúncia e acolhimento"},
+    {"id": 108, "eixo": "6. Garantia de Direitos", "nicho": "Juventude Periférica", "texto": "Lançar o Programa Primeiro Emprego para Jovens em situação de vulnerabilidade.", "meta": "Bolsa mensal e contrato de aprendizado em empresas"},
+    {"id": 109, "eixo": "6. Garantia de Direitos", "nicho": "Pessoas Cegas / Baixa Visão", "texto": "Implantar sinalização tátil e em braile em prédios públicos e paradas de ônibus.", "meta": "Acessibilidade total na infraestrutura governamental"},
+    {"id": 110, "eixo": "6. Garantia de Direitos", "nicho": "Comunidade Surda", "texto": "Garantir intérpretes de LIBRAS em todos os hospitais, delegacias e órgãos públicos estaduais.", "meta": "Comunicação acessível sem barreiras atitudinais"},
+    {"id": 111, "eixo": "6. Garantia de Direitos", "nicho": "Refugiados e Migrantes", "texto": "Criar o Comitê Estadual de Apoio a Refugiados e Migrantes em situação de vulnerabilidade.", "meta": "Acolhimento humanizado e documentação rápida"},
+    {"id": 112, "eixo": "6. Garantia de Direitos", "nicho": "Vítimas de Crimes", "texto": "Fortalecer o Centro de Apoio às Vítimas de Crimes Violentos (CEAV).", "meta": "Atendimento psicológico e jurídico compensatório"},
+    {"id": 113, "eixo": "6. Garantia de Direitos", "nicho": "Cidadania nos Bairros", "texto": "Promover Mutirões de Documentação Básica (RG, CPF e Certidões) nos bairros carentes.", "meta": "Zero cidadãos sem documentação civil básica"},
+    {"id": 114, "eixo": "6. Garantia de Direitos", "nicho": "População em Situação de Rua", "texto": "Implantar equipes multidisciplinares móveis de acolhimento noturno e saúde de rua.", "meta": "Atendimento humanizado nas grandes cidades"},
+    {"id": 115, "eixo": "6. Garantia de Direitos", "nicho": "Cultura de Paz", "texto": "Criar Círculos de Justiça Restaurativa e Mediação de Conflitos nas escolas estaduais.", "meta": "Prevenção da violência escolar por diálogo"},
+    {"id": 116, "eixo": "6. Garantia de Direitos", "nicho": "Crianças Órfãs", "texto": "Criar o Auxílio Acolhimento para famílias acolhedoras de crianças e adolescentes.", "meta": "Incentivo financeiro para acolhimento familiar em vez de abrigos"},
+    {"id": 117, "eixo": "6. Garantia de Direitos", "nicho": "Combate ao Etarismo", "texto": "Promover campanhas estaduais de conscientização contra o preconceito com a pessoa idosa.", "meta": "Valorização da experiência e combate à discriminação"},
+    {"id": 118, "eixo": "6. Garantia de Direitos", "nicho": "Acessibilidade Urbana", "texto": "Destinar fundo específico para calçadas acessíveis no entorno de hospitais e escolas públicas.", "meta": "Padrão universal de rota acessível"},
+    {"id": 119, "eixo": "6. Garantia de Direitos", "nicho": "Mães Atípicas", "texto": "Garantir atendimento psicológico e grupos de apoio dedicados às mães atípicas no SUS.", "meta": "Cuidado com a saúde mental da cuidadora"},
+    {"id": 120, "eixo": "6. Garantia de Direitos", "nicho": "Igualdade Racial", "texto": "Fomentar o empreendedorismo negro com crédito facilitado na Agência de Fomento de Pernambuco.", "meta": "Linha de crédito focada em negócios negros"},
+    {"id": 121, "eixo": "6. Garantia de Direitos", "nicho": "Povos Cigano e Tradicionais", "texto": "Cadastrar e reconhecer comunidades ciganas garantindo atendimento de saúde itinerante.", "meta": "Respeito à cultura itinerante e saúde garantida"},
+    {"id": 122, "eixo": "6. Garantia de Direitos", "nicho": "Juventude Rural", "texto": "Criar o Bolsa Conexão Rural para apoiar permanência de jovens no campo com inovação agrotech.", "meta": "Fixação da juventude no campo com renda"},
+    {"id": 123, "eixo": "6. Garantia de Direitos", "nicho": "Direito à Cidade", "texto": "Garantir passe livre no transporte público intermunicipal nos dias de eleições oficiais.", "meta": "Garantia do exercício pleno da cidadania e voto"},
+    {"id": 124, "eixo": "6. Garantia de Direitos", "nicho": "Combate à Intolerância", "texto": "Instalar a Delegacia Especializada em Crimes de Intolerância Racial e Religiosa.", "meta": "Apuração rigorosa de crimes de ódio"},
+    {"id": 125, "eixo": "6. Garantia de Direitos", "nicho": "Pessoas com Doenças Raras", "texto": "Criar o Cadastro Estadual da Pessoa com Doença Rara para agilizar benefícios e terapias.", "meta": "Atendimento desburocratizado na rede estadual"},
+    {"id": 126, "eixo": "6. Garantia de Direitos", "nicho": "Inclusão no Trabalho", "texto": "Criar programa de incentivo para empresas privadas contratarem PcDs acima das cotas legais.", "meta": "Selo de Inclusão e incentivos fiscais"},
+    {"id": 127, "eixo": "6. Garantia de Direitos", "nicho": "Defesa das Minorias", "texto": "Publicar anualmente o Relatório Estadual de Violações de Direitos Humanos.", "meta": "Transparência total e dados abertos sobre violência"},
+    {"id": 128, "eixo": "6. Garantia de Direitos", "nicho": "Garantia de Direitos", "texto": "Avançar na reestruturação dos Centros Sociais Urbanos (CSUs) transformando-os em Casas de Cidadania.", "meta": "Espaços multiuso comunitários e de lazer"},
+
+    {"id": 129, "eixo": "7. Cultura e Eco. Criat.", "nicho": "Artistas Independentes", "texto": "Simplificar e descentralizar os editais do Funcultura para beneficiar artistas do interior.", "meta": "Desburocratização de pagamentos e análise regionalizada"},
+    {"id": 130, "eixo": "7. Cultura e Eco. Criat.", "nicho": "Patrimônio Cultural", "texto": "Criar o Programa Salvaguarda dos Mestres da Cultura Popular com bolsa vitalícia reajustada.", "meta": "Preservação da memória e tradições dos mestres"},
+    {"id": 131, "eixo": "7. Cultura e Eco. Criat.", "nicho": "Carnaval e São João", "texto": "Garantir pagamento antecipado em até 30 dias para atrações de ciclos festivos tradicionais.", "meta": "Fim do atraso histórico de cachês de artistas locais"},
+    {"id": 132, "eixo": "7. Cultura e Eco. Criat.", "nicho": "Cinema e Audiovisual", "texto": "Fortalecer Pernambuco como polo audiovisual com editais estaduais permanentes de cinema.", "meta": "Financiamento regular para curtas e longas estaduais"},
+    {"id": 133, "eixo": "7. Cultura e Eco. Criat.", "nicho": "Equipamentos Culturais", "texto": "Requalificar os teatros, museus e bibliotecas públicas estaduais no Recife e no interior.", "meta": "Manutenção continuada de acervos e salas de espetáculo"},
+    {"id": 134, "eixo": "7. Cultura e Eco. Criat.", "nicho": "Economia Criativa", "texto": "Criar Centros de Inovação Criativa em Caruaru, Olinda e Petrolina para apoio a designers e artesãos.", "meta": "Estímulo a startups culturais e de design"},
+    {"id": 135, "eixo": "7. Cultura e Eco. Criat.", "nicho": "Música e Dança", "texto": "Fomentar a circulação de espetáculos musicais e de dança nas escolas e praças públicas.", "meta": "Acesso gratuito à produção cultural local"},
+    {"id": 136, "eixo": "7. Cultura e Eco. Criat.", "nicho": "Gastronomia Tradicional", "texto": "Criar a Rota Gastronômica Cultural de Pernambuco valorizando pratos e feiras típicas.", "meta": "Divulgação turística e incentivo aos negócios locais"},
+
+    {"id": 137, "eixo": "8. Ciência, Tec. e Inov.", "nicho": "Startups / Inovação", "texto": "Expandir o modelo do Porto Digital para o interior (Agreste, Sertão e Zona da Mata).", "meta": "Criação de parques tecnológicos regionais"},
+    {"id": 138, "eixo": "8. Ciência, Tec. e Inov.", "nicho": "Pesquisadores / FACEPE", "texto": "Aumentar os recursos da FACEPE para financiamento de pesquisas acadêmicas aplicadas às vocações de PE.", "meta": "Valorização de bolsas de mestrado e doutorado"},
+    {"id": 139, "eixo": "8. Ciência, Tec. e Inov.", "nicho": "Governo Digital", "texto": "Digitalizar 100% dos serviços públicos estaduais em plataforma única com login gov.br.", "meta": "Fim das filas presenciais em balcões burocráticos"},
+    {"id": 140, "eixo": "8. Ciência, Tec. e Inov.", "nicho": "Inteligência Artificial", "texto": "Criar o Laboratório de Inteligência Artificial para Gestão Pública de Pernambuco.", "meta": "Soluções automatizadas para trânsito, saúde e tributos"},
+    {"id": 141, "eixo": "8. Ciência, Tec. e Inov.", "nicho": "Jovens Programadores", "texto": "Conceder bolsas de estudo de tecnologia para jovens de baixa renda em cursos bootcamp de programação.", "meta": "Formação rápida voltada para empregabilidade em TI"},
+
+    {"id": 142, "eixo": "9. Desenv. Econ. e Tur.", "nicho": "Empresários / Indústria", "texto": "Desburocratizar o licenciamento ambiental e concessão de incentivos fiscais pelo Prodepe.", "meta": "Agilidade para atração de novas indústrias"},
+    {"id": 143, "eixo": "9. Desenv. Econ. e Tur.", "nicho": "Micro e Pequenas Empresas", "texto": "Reduzir burocracia do ICMS e criar balcão único de atendimento na Junta Comercial.", "meta": "Abertura de empresas em menos de 24 horas"},
+    {"id": 144, "eixo": "9. Desenv. Econ. e Tur.", "nicho": "Turismo / Praias e Sertão", "texto": "Promover campanhas internacionais de promoção do turismo de Pernambuco em hubs europeus e americanos.", "meta": "Aumento do fluxo de voos internacionais no Recife"},
+    {"id": 145, "eixo": "9. Desenv. Econ. e Tur.", "nicho": "Polo Têxtil do Agreste", "texto": "Criar plano de revitalização do Polo de Confecções de Caruaru, Toritama e Santa Cruz do Capibaribe.", "meta": "Crédito, qualificação e logística exportadora"},
+    {"id": 146, "eixo": "9. Desenv. Econ. e Tur.", "nicho": "Porto de Suape", "texto": "Acelerar obras de dragagem e atração de novos terminais privados e ferrovia no Porto de Suape.", "meta": "Retomada do protagonismo logístico do Nordeste"},
+    {"id": 147, "eixo": "9. Desenv. Econ. e Tur.", "nicho": "Turismo Religioso e Cultural", "texto": "Investir em infraestrutura viária e receptivo na Rota do Turismo Religioso no interior.", "meta": "Estruturação de santuários e roteiros de fé"},
+    {"id": 148, "eixo": "9. Desenv. Econ. e Tur.", "nicho": "Comércio Exterior", "texto": "Criar escritório de facilitação de exportações para pequenos e médios produtores locais.", "meta": "Inserção de produtos locais no mercado global"},
+
+    {"id": 149, "eixo": "10. Desenv. Agrário", "nicho": "Agricultores Familiares", "texto": "Garantir compra direta da agricultura familiar para alimentação escolar e hospitais estaduais.", "meta": "Cumprimento de 40% de compras públicas da agricultura familiar"},
+    {"id": 150, "eixo": "10. Desenv. Agrário", "nicho": "Produtores Rurais", "texto": "Fortalecer a IPA (Instituto Agronômico de Pernambuco) com novos agrônomos e assistência técnica presencial.", "meta": "Atendimento técnico em 100% dos assentamentos e pequenas propriedades"},
+    {"id": 151, "eixo": "10. Desenv. Agrário", "nicho": "Sertão / Fruticultura", "texto": "Apoiar expansão da fruticultura irrigada no Vale do São Francisco com logística e energia limpa.", "meta": "Incentivos para exportação de uva e manga"},
+    {"id": 152, "eixo": "10. Desenv. Agrário", "nicho": "Regularização Fundiária", "texto": "Entregar títulos de propriedade rural para milhares de pequenos posseiros e agricultores.", "meta": "Segurança jurídica e acesso ao crédito agronegócio"},
+    {"id": 153, "eixo": "10. Desenv. Agrário", "nicho": "Convivência com o Semiárido", "texto": "Construir novas cisternas de beber e de produção em comunidades rurais do Sertão.", "meta": "Garantia de segurança hídrica no campo"},
+
+    {"id": 154, "eixo": "11. Infraestr. e Rec. Híd.", "nicho": "População sob Rodízio", "texto": "Acelerar grandes obras de adutoras e integração com a Transposição do Rio São Francisco.", "meta": "Fim definitivo do rodízio severo de água em Pernambuco"},
+    {"id": 155, "eixo": "11. Infraestr. e Rec. Híd.", "nicho": "Motoristas / Logística", "texto": "Lançar o Programa Caminhos de Pernambuco com recapeamento e duplicação das principais rodovias estaduais.", "meta": "Manutenção permanente de mais de 5.000 km de malha viária"},
+    {"id": 156, "eixo": "11. Infraestr. e Rec. Híd.", "nicho": "COMPESA / Saneamento", "texto": "Modernizar a rede de distribuição da Compesa para reduzir perdas físicas de água no sistema.", "meta": "Redução de perdas de vazamento de 50% para 25%"},
+    {"id": 157, "eixo": "11. Infraestr. e Rec. Híd.", "nicho": "Cidades / Drenagem", "texto": "Executar obras estruturantes de macro-drenagem e controle de enchentes nas bacias hidrográficas.", "meta": "Prevenção de alagamentos em áreas urbanas de risco"},
+    {"id": 158, "eixo": "11. Infraestr. e Rec. Híd.", "nicho": "Energia Renovável", "texto": "Instalar usinas solares fotovoltaicas nos prédios estaduais e canais de água.", "meta": "Economia na conta de energia do setor público"},
+
+    {"id": 159, "eixo": "12. Desenv. Urb. e Mobil.", "nicho": "Passageiros de Ônibus", "texto": "Renovar a frota do Sistema de Transporte Público da RMR com ônibus 100% ar-condicionado e elétricos.", "meta": "Conforto e sustentabilidade no transporte metropolitano"},
+    {"id": 160, "eixo": "12. Desenv. Urb. e Mobil.", "nicho": "Usuários do Metrô", "texto": "Articular com o Governo Federal a estadualização ou concessão com investimentos maciços no Metrô do Recife.", "meta": "Recuperação total das estações, trilhos e trens"},
+    {"id": 161, "eixo": "12. Desenv. Urb. e Mobil.", "nicho": "Ciclistas", "texto": "Construir a Rede Metropolitana de Ciclovias conectando Recife, Olinda, Jaboatão e Camaragibe.", "meta": "Conexão segura de mais de 100 km de faixas exclusivas"},
+    {"id": 162, "eixo": "12. Desenv. Urb. e Mobil.", "nicho": "Pedestres", "texto": "Requalificar os terminais integrados de passageiros (SEOP) com segurança, comércio e acessibilidade.", "meta": "Terminais limpos, seguros e com Wi-Fi"},
+    {"id": 163, "eixo": "12. Desenv. Urb. e Mobil.", "nicho": "Trânsito e Mobilidade", "texto": "Criar a Autoridade Metropolitana de Transportes para gerir trânsito e ônibus de forma unificada.", "meta": "Gestão integrada de mobilidade na Região Metropolitana"},
+
+    {"id": 164, "eixo": "13. Habitabilidade", "nicho": "Famílias de Baixa Renda", "texto": "Lançar o Programa Estadual de Habitação em parceria com Minha Casa Minha Vida.", "meta": "Construção de 50.000 novas moradias populares"},
+    {"id": 165, "eixo": "13. Habitabilidade", "nicho": "Moradores de Morros", "texto": "Expandir obras de geomanta, muros de arrimo e contenção de encostas nas áreas de risco da RMR.", "meta": "Proteção de áreas sujeitas a deslizamentos no inverno"},
+    {"id": 166, "eixo": "13. Habitabilidade", "nicho": "Moradores de Palafitas", "texto": "Erradicar áreas de palafitas com reassentamento digno em conjuntos habitacionais estruturados.", "meta": "Dignidade e moradia em alvenaria com saneamento"},
+    {"id": 167, "eixo": "13. Habitabilidade", "nicho": "Regularização Urbana", "texto": "Entregar escrituras públicas de posse urbana gratuita pelo Programa Periferia Viva.", "meta": "Segurança jurídica da posse da casa própria"},
+
+    {"id": 168, "eixo": "14. Meio Amb. e Animais", "nicho": "Protetores e Animais", "texto": "Construir o Hospital Veterinário Público Estadual e unidades móveis de castração (Castramóvel).", "meta": "Castração e atendimento veterinário gratuito regionalizado"},
+    {"id": 169, "eixo": "14. Meio Amb. e Animais", "nicho": "Meio Ambiente", "texto": "Restaurar e reflorestar áreas de Mata Atlântica e Caatinga com plantio de árvores nativas.", "meta": "Meta de plantio de 5 milhões de mudas em Pernambuco"},
+    {"id": 170, "eixo": "14. Meio Amb. e Animais", "nicho": "Resíduos Sólidos", "texto": "Erradicar 100% dos lixões a céu aberto restantes no interior de Pernambuco.", "meta": "Apoio a aterros sanitários consorciados"},
+    {"id": 171, "eixo": "14. Meio Amb. e Animais", "nicho": "Mudanças Climáticas", "texto": "Implantar o Plano Estadual de Adaptação Climática com salas de alerta meteorológico.", "meta": "Monitoramento em tempo real de eventos extremos"},
+    {"id": 172, "eixo": "14. Meio Amb. e Animais", "nicho": "Unidades de Conservação", "texto": "Fortalecer a fiscalização ambiental na CPRH contra desmatamento ilegal e caça.", "meta": "Proteção efetiva dos parques e reservas estaduais"},
+    {"id": 173, "eixo": "14. Meio Amb. e Animais", "nicho": "Cães e Gatos Abandonados", "texto": "Criar cadastro estadual de ONGs e protetores independentes com ração a preço social.", "meta": "Apoio alimentar e médico à causa animal"},
+    {"id": 174, "eixo": "14. Meio Amb. e Animais", "nicho": "Educação Ambiental", "texto": "Promover a conscientização sobre sustentabilidade e proteção animal na rede de ensino público.", "meta": "Formação ambiental continuada para jovens"},
+
+    {"id": 175, "eixo": "15. Gestão Integrada", "nicho": "Servidores Públicos", "texto": "Realizar concursos públicos periódicos para repor quadros na saúde, educação e segurança.", "meta": "Valorização das carreiras de estado"},
+    {"id": 176, "eixo": "15. Gestão Integrada", "nicho": "Transparência Pública", "texto": "Elevar o Portal da Transparência de Pernambuco ao nota máxima nos rankings nacionais.", "meta": "Dados 100% abertos e fiscalização cidadã"},
+    {"id": 177, "eixo": "15. Gestão Integrada", "nicho": "Gestão Fiscal", "texto": "Manter equilíbrio das contas públicas garantindo capacidade de investimento com poupança própria.", "meta": "Capacidade de investimento em alta e nota A no STN"},
+    {"id": 178, "eixo": "15. Gestão Integrada", "nicho": "Regionalização", "texto": "Criar fóruns regionais de pactuação com prefeitos para execução integrada de obras estaduais.", "meta": "Gestão descentralizada perto do cidadão"}
+  ];
+
+  const KEYWORDS_JOAO = [
+    { word: 'Garantia de Direitos', tagClass: 'tag-hero' },
+    { word: 'Educação', tagClass: 'tag-hero' },
+    { word: 'Saúde', tagClass: 'tag-hero' },
+    { word: 'IPVA Motos', tagClass: '' },
+    { word: 'Guarda Municipal', tagClass: '' },
+    { word: 'Mulheres', tagClass: '' },
+    { word: 'Porto de Suape', tagClass: '' },
+    { word: 'COMPAZ', tagClass: '' },
+    { word: 'COMPESA', tagClass: '' }
+  ];
+
+  let currentCandidate = 'joao';
+  let currentTab = 'overview';
+  let filterEixo = 'TODOS';
+  let filterSearch = '';
+  let chartInstance = null;
+  let searchDebounceTimer = null;
+
+  function selectCandidate(candKey) {
+    currentCandidate = candKey;
+    document.querySelectorAll('.cand-card').forEach(c => c.classList.remove('active'));
+    document.getElementById(`cand-${candKey}`).classList.add('active');
+    render();
+  }
+
+  function switchTab(tabKey) {
+    currentTab = tabKey;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(`tab-${tabKey}`).classList.add('active');
+    render();
+  }
+
+  function filterByKeyword(kw) {
+    filterSearch = kw;
+    switchTab('propostas');
+  }
+
+  // Função isolada de renderização rápida da lista sem recriar o input
+  function renderListOnly() {
+    const listContainer = document.getElementById('propostas-list');
+    if (!listContainer) return;
+
+    const filtered = DATA_JOAO.filter(item => {
+      const matchEixo = (filterEixo === 'TODOS') || (item.eixo === filterEixo);
+      const searchBlob = (item.texto + ' ' + item.nicho + ' ' + item.meta + ' ' + item.eixo).toLowerCase();
+      const matchSearch = !filterSearch || searchBlob.includes(filterSearch.toLowerCase());
+      return matchEixo && matchSearch;
+    });
+
+    if (filtered.length === 0) {
+      listContainer.innerHTML = `<div class="empty-state"><p>Nenhuma proposta encontrada com esses termos.</p></div>`;
+      return;
+    }
+
+    listContainer.innerHTML = filtered.map(item => `
+      <div class="prop-card">
+        <div class="prop-head">
+          <span class="prop-badge">${item.eixo}</span>
+          <span class="prop-nicho">${item.nicho}</span>
+        </div>
+        <div class="prop-desc"><strong>#${item.id}:</strong> ${item.texto}</div>
+        <div class="prop-meta">🎯 <strong>Meta / Recurso:</strong> ${item.meta}</div>
+      </div>
+    `).join('');
+  }
+
+  function onSearchInput(val) {
+    filterSearch = val;
+    clearTimeout(searchDebounceTimer);
+    searchDebounceTimer = setTimeout(() => {
+      renderListOnly();
+    }, 120);
+  }
+
+  function render() {
+    const container = document.getElementById('view-container');
+    const footerCount = document.getElementById('footer-count');
+
+    if (currentCandidate !== 'joao') {
+      const nome = currentCandidate === 'raquel' ? 'Raquel Lyra' : 'Ivan Moraes';
+      container.innerHTML = `
+        <div class="empty-state">
+          <h3>Plano de Governo em Atualização</h3>
+          <p>A pré-candidatura de <strong>${nome}</strong> ainda não disponibilizou o conjunto exaustivo de propostas no formato de dados abertos para este painel.</p>
+          <div class="notice-box">
+            <strong>Critério Editorial Jamildo.com:</strong> O portal acompanha diariamente os registros formais na Justiça Eleitoral. Assim que os dados forem consolidados, serão cadastrados imediatamente.
+          </div>
+        </div>
+      `;
+      footerCount.textContent = 'Exibindo 0 propostas';
+      return;
+    }
+
+    footerCount.textContent = `Total carregado: ${DATA_JOAO.length} propostas oficiais`;
+
+    if (currentTab === 'overview') {
+      // Contagem por Eixo
+      const counts = {};
+      DATA_JOAO.forEach(item => {
+        counts[item.eixo] = (counts[item.eixo] || 0) + 1;
+      });
+
+      let cloudHtml = KEYWORDS_JOAO.map(k => 
+        `<span class="cloud-tag ${k.tagClass}" onclick="filterByKeyword('${k.word}')">${k.word}</span>`
+      ).join('');
+
+      container.innerHTML = `
+        <!-- Análise Editorial Automatizada -->
+        <div class="analysis-card">
+          <h3>Análise do Plano de Governo</h3>
+          <p>
+            No plano completo de <strong>João Campos</strong> (178 propostas divididas em 15 eixos), os maiores volumes de compromissos estão concentrados em <strong>Garantia de Direitos (34 propostas)</strong>, <strong>Educação e Esportes (27)</strong>, <strong>Desenvolvimento Social (21)</strong>, <strong>Saúde (20)</strong> e <strong>Segurança Cidadã (16)</strong>.
+          </p>
+        </div>
+
+        <div class="section-box">
+          <div class="box-header">
+            <span>🏷️ Nuvem de Palavras-Chave Frequentes</span>
+            <span style="font-size:8.5px; color:#64748b; font-weight:normal;">Clique para buscar</span>
+          </div>
+          <div class="cloud-tags">${cloudHtml}</div>
+        </div>
+
+        <div class="section-box">
+          <div class="box-header">
+            <span>📊 Distribuição de Propostas por Área</span>
+            <span style="font-size:8.5px; color:#64748b; font-weight:normal;">Gráfico Oficial (15 Eixos)</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="propostasChart"></canvas>
+          </div>
+        </div>
+      `;
+
+      // Renderizar Chart.js
+      setTimeout(() => {
+        const ctx = document.getElementById('propostasChart').getContext('2d');
+        if (chartInstance) chartInstance.destroy();
+
+        const labels = Object.keys(counts).map(l => l.replace(/^\d+\.\s*/, ''));
+        const values = Object.values(counts);
+
+        chartInstance = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Propostas Cadastradas',
+              data: values,
+              backgroundColor: [
+                '#024796', '#f83d03', '#0284c7', '#f97316', '#0d9488',
+                '#8b5cf6', '#ec4899', '#10b981', '#6366f1', '#14b8a6',
+                '#f43f5e', '#a855f7', '#06b6d4', '#84cc16', '#eab308'
+              ],
+              borderRadius: 4,
+              borderSkipped: false
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: (ctx) => ` ${ctx.raw} propostas cadastradas`
+                }
+              }
+            },
+            scales: {
+              x: {
+                ticks: { font: { size: 7.5, weight: '700' }, color: '#334155' },
+                grid: { display: false }
+              },
+              y: {
+                ticks: { font: { size: 8 }, color: '#64748b', precision: 0 },
+                grid: { color: '#f1f5f9' }
+              }
+            },
+            onClick: (e, elements) => {
+              if (elements.length > 0) {
+                const index = elements[0].index;
+                const fullEixo = Object.keys(counts)[index];
+                filterEixo = fullEixo;
+                switchTab('propostas');
+              }
+            }
+          }
+        });
+      }, 50);
+
+    } else {
+      // Aba "Todas as Propostas (178)"
+      const eixosUnicos = ['TODOS', ...new Set(DATA_JOAO.map(i => i.eixo))];
+      let optionsHtml = eixosUnicos.map(e => 
+        `<option value="${e}" ${filterEixo === e ? 'selected' : ''}>${e}</option>`
+      ).join('');
+
+      container.innerHTML = `
+        <div class="controls-bar">
+          <div class="search-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 3,9.5M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/></svg>
+            <input type="text" id="srch" placeholder="Buscar palavra nas 178 propostas..." value="${filterSearch}" oninput="onSearchInput(this.value)">
+          </div>
+          <select class="select-eixo" onchange="filterEixo=this.value; renderListOnly();">${optionsHtml}</select>
+        </div>
+        <div style="flex:1;" id="propostas-list"></div>
+      `;
+
+      renderListOnly();
+    }
+  }
+
+  // Render inicial
+  render();
+</script>
+
+</body>
+</html>
