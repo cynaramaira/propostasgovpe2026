@@ -404,6 +404,30 @@
       height: 28px;
       flex-shrink: 0;
     }
+    /* Botão de Download PDF */
+    .btn-download-pdf {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background-color: #024796;
+      color: #ffffff;
+      font-size: 8.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 12px;
+      text-decoration: none;
+      margin-top: 3px;
+      transition: all 0.2s ease;
+      width: fit-content;
+      border: 1px solid #024796;
+    }
+
+    .btn-download-pdf:hover {
+      background-color: #f83d03;
+      border-color: #f83d03;
+      color: #ffffff;
+    }
   </style>
 </head>
 <body>
@@ -418,16 +442,22 @@
     </div>
   </header>
 
-  <!-- Seção Candidatos -->
+  <!-- Seção Candidatos com Botão de Download -->
+  <!-- Seção Candidatos com Botão de Download Corrigido -->
   <div class="candidatos-bar">
+    <!-- João Campos -->
     <div class="cand-card active" onclick="selectCandidate('joao')" id="cand-joao">
       <img src="joao-campos.jpg" class="cand-foto" alt="João Campos" onerror="this.src='https://via.placeholder.com/38?text=JC'">
       <div class="cand-details">
         <span class="cand-nome">João Campos</span>
         <span class="cand-tag tag-active">178 Propostas</span>
+        <a href="joao-campos-plano.pdf" target="_blank" download class="btn-download-pdf" onclick="event.stopPropagation();">
+          📄 PDF
+        </a>
       </div>
     </div>
 
+    <!-- Raquel Lyra -->
     <div class="cand-card" onclick="selectCandidate('raquel')" id="cand-raquel">
       <img src="raquellyra.jpg" class="cand-foto" alt="Raquel Lyra" onerror="this.src='https://via.placeholder.com/38?text=RL'">
       <div class="cand-details">
@@ -436,11 +466,15 @@
       </div>
     </div>
 
+    <!-- Ivan Moraes -->
     <div class="cand-card" onclick="selectCandidate('ivan')" id="cand-ivan">
       <img src="ivanmoraes.jpg" class="cand-foto" alt="Ivan Moraes" onerror="this.src='https://via.placeholder.com/38?text=IM'">
       <div class="cand-details">
         <span class="cand-nome">Ivan Moraes</span>
         <span class="cand-tag tag-active">254 Propostas</span>
+        <a href="ivan-moraes-plano.pdf" target="_blank" download class="btn-download-pdf" onclick="event.stopPropagation();">
+          📄 PDF
+        </a>
       </div>
     </div>
   </div>
