@@ -379,18 +379,6 @@
 
     .empty-state p { font-size: 10.5px; line-height: 1.4; }
 
-    .notice-box {
-      margin-top: 10px;
-      background: #fffbeb;
-      border: 1px solid #fef3c7;
-      color: #92400e;
-      padding: 8px;
-      border-radius: 6px;
-      font-size: 9px;
-      text-align: left;
-      line-height: 1.3;
-    }
-
     /* Footer */
     footer {
       background: #ffffff;
@@ -404,6 +392,7 @@
       height: 28px;
       flex-shrink: 0;
     }
+
     /* Botão de Download PDF */
     .btn-download-pdf {
       display: inline-flex;
@@ -442,9 +431,20 @@
     </div>
   </header>
 
-  <!-- Seção Candidatos com Botão de Download -->
-  <!-- Seção Candidatos com Botão de Download Corrigido -->
+  <!-- Seção Candidatos em Ordem Alfabética -->
   <div class="candidatos-bar">
+    <!-- Ivan Moraes -->
+    <div class="cand-card" onclick="selectCandidate('ivan')" id="cand-ivan">
+      <img src="ivanmoraes.jpg" class="cand-foto" alt="Ivan Moraes" onerror="this.src='https://via.placeholder.com/38?text=IM'">
+      <div class="cand-details">
+        <span class="cand-nome">Ivan Moraes</span>
+        <span class="cand-tag tag-active">254 Propostas</span>
+        <a href="ivan-moraes-plano.pdf" target="_blank" download class="btn-download-pdf" onclick="event.stopPropagation();">
+          📄 PDF
+        </a>
+      </div>
+    </div>
+
     <!-- João Campos -->
     <div class="cand-card active" onclick="selectCandidate('joao')" id="cand-joao">
       <img src="joao-campos.jpg" class="cand-foto" alt="João Campos" onerror="this.src='https://via.placeholder.com/38?text=JC'">
@@ -462,17 +462,8 @@
       <img src="raquellyra.jpg" class="cand-foto" alt="Raquel Lyra" onerror="this.src='https://via.placeholder.com/38?text=RL'">
       <div class="cand-details">
         <span class="cand-nome">Raquel Lyra</span>
-        <span class="cand-tag tag-pending">Aguardando</span>
-      </div>
-    </div>
-
-    <!-- Ivan Moraes -->
-    <div class="cand-card" onclick="selectCandidate('ivan')" id="cand-ivan">
-      <img src="ivanmoraes.jpg" class="cand-foto" alt="Ivan Moraes" onerror="this.src='https://via.placeholder.com/38?text=IM'">
-      <div class="cand-details">
-        <span class="cand-nome">Ivan Moraes</span>
-        <span class="cand-tag tag-active">254 Propostas</span>
-        <a href="ivan-moraes-plano.pdf" target="_blank" download class="btn-download-pdf" onclick="event.stopPropagation();">
+        <span class="cand-tag tag-active">168 Propostas</span>
+        <a href="raquel-lyra-plano.pdf" target="_blank" download class="btn-download-pdf" onclick="event.stopPropagation();">
           📄 PDF
         </a>
       </div>
@@ -728,7 +719,7 @@
     {"id": 31, "eixo": "2. Economia", "nicho": "Trabalhadores de Aplicativo", "texto": "Regulamentar pontos de descanso com água, sanitários e recarga de celular em todos os municípios polos.", "meta": "Infraestrutura pública obrigatória para entregadores"},
     {"id": 32, "eixo": "2. Economia", "nicho": "Mulheres Empreendedoras", "texto": "Criar o Fundo Estadual de Apoio às Mulheres Empreendedoras periféricas e chefes de família.", "meta": "Crédito subsidiado e formação em gestão"},
     {"id": 33, "eixo": "2. Economia", "nicho": "Polo Têxtil do Agreste", "texto": "Apoiar a modernização sustentável do Polo de Confecções do Agreste com reciclagem têxtil e tratamento de efluentes.", "meta": "Sustentabilidade ecológica e qualificação produtiva"},
-    {"id": 34, "eixo": "2. Economia", "nicho": "Turismo Comunitário", "texto": "Incentivar o turismo de base comunitária nas favelas, territórios quilombolas e praias nativas.", "meta": "Geração de renda direta para os moradores locais"},
+    {"id": 34, "eixo": "2. Economia", "nicho": "Turismo Comunitário", "texto": "Incentivar o turismo de base comunitário nas favelas, territórios quilombolas e praias nativas.", "meta": "Geração de renda direta para os moradores locais"},
     {"id": 35, "eixo": "2. Economia", "nicho": "Pesca Artesanal", "texto": "Criar linhas de fomento e seguro-defeso suplementar para marisqueiras e pescadores artesanais.", "meta": "Proteção à cultura e subsistência pesqueira tradicional"},
     {"id": 36, "eixo": "2. Economia", "nicho": "Servidores Públicos", "texto": "Combater a precarização do trabalho no setor público eliminando contratos temporários ilegais.", "meta": "Realização regular de concursos públicos"},
     {"id": 37, "eixo": "2. Economia", "nicho": "Indústria Verde", "texto": "Conceder incentivos fiscais vinculados a metas de descarbonização e contratação de mão de obra local.", "meta": "Condicionantes ambientais para incentivos estaduais"},
@@ -964,6 +955,193 @@
     {"id": 254, "eixo": "15. Criança e Adolescente", "nicho": "Participação Infantil", "texto": "Realizar o Congresso Estadual das Crianças para escuta direta das demandas dos pequenos sobre as cidades.", "meta": "Direito à voz e participação cidadã desde a infância"}
   ];
 
+  // 168 PROPOSTAS DE RAQUEL LYRA
+  const DATA_RAQUEL = [
+    {"id": 1, "eixo": "1. Educação", "nicho": "Mães e Crianças", "texto": "Concluir a construção e equipagem de 250 novas creches municipais em regime de colaboração com os municípios.", "meta": "250 creches / 60 mil vagas na Educação Infantil"},
+    {"id": 2, "eixo": "1. Educação", "nicho": "Municípios", "texto": "Apoiar os municípios no primeiro ano de funcionamento de cada nova creche para obter financiamento do FNDE.", "meta": "Garantia de custeio inicial federal"},
+    {"id": 3, "eixo": "1. Educação", "nicho": "Vulneráveis / Crianças", "texto": "Apoiar os municípios na execução de estratégias de busca ativa para assegurar a universalização da pré-escola.", "meta": "Universalização da pré-escola"},
+    {"id": 4, "eixo": "1. Educação", "nicho": "Primeira Infância", "texto": "Consolidar referenciais de excelência pedagógica alinhados com o Compromisso Nacional (Conaquei).", "meta": "Parâmetros de qualidade nas interações"},
+    {"id": 5, "eixo": "1. Educação", "nicho": "Estudantes / Escolas", "texto": "Fortalecer o Programa Criança Alfabetizada para aproximar o estado da meta de 100% de alfabetização na idade certa.", "meta": "Alfabetização e matemática no tempo certo"},
+    {"id": 6, "eixo": "1. Educação", "nicho": "Geral / Alunos", "texto": "Requalificar a infraestrutura física das escolas, garantindo laboratórios modernos, internet e climatização de salas.", "meta": "Climatização e internet de banda larga"},
+    {"id": 7, "eixo": "1. Educação", "nicho": "Jovens do Interior", "texto": "Concluir a construção e a equipagem de 15 novas Escolas Técnicas Estaduais (ETEs) para expandir o ensino profissional.", "meta": "15 novas ETEs descentralizadas"},
+    {"id": 8, "eixo": "1. Educação", "nicho": "Estudantes / Recife", "texto": "Concluir as obras de restauração e inaugurar a nova Escola Técnica Estadual (ETE) no antigo Liceu de Artes e Ofícios.", "meta": "Ensino Técnico no Liceu de Artes e Ofícios"},
+    {"id": 9, "eixo": "1. Educação", "nicho": "Estudantes / GP", "texto": "Concluir as obras de restauração do prédio histórico do Ginásio Pernambucano.", "meta": "Ginásio Pernambucano revitalizado"},
+    {"id": 10, "eixo": "1. Educação", "nicho": "Ensino Médio e EJA", "texto": "Fortalecer o Programa TrilhaTec ampliando a oferta anual de vagas em cursos de qualificação rápida.", "meta": "Qualificação profissional rápida integrada"},
+    {"id": 11, "eixo": "1. Educação", "nicho": "Estudantes em Atraso", "texto": "Consolidar política permanente de Recomposição das Aprendizagens para superar defasagens.", "meta": "Mitigação das perdas pedagógicas"},
+    {"id": 12, "eixo": "1. Educação", "nicho": "Geral", "texto": "Ampliar o acesso e o uso pedagógico de internet rápida nas escolas integrada à Estratégia Nacional (ENEC).", "meta": "Escolas Conectadas"},
+    {"id": 13, "eixo": "1. Educação", "nicho": "Estudantes", "texto": "Garantir a manutenção de merenda escolarizada produzida por cozinheiras dentro das próprias escolas.", "meta": "Merenda escolar sem terceirização"},
+    {"id": 14, "eixo": "1. Educação", "nicho": "Agricultores", "texto": "Consolidar a segurança nutricional através da ampliação de compras da agricultura familiar para a merenda.", "meta": "Compra direta de pequenos produtores"},
+    {"id": 15, "eixo": "1. Educação", "nicho": "Polo do Gesso/Agreste", "texto": "Produzir o fardamento escolar da rede estadual no Polo de Confecções do Agreste.", "meta": "Fardamentos produzidos localmente no Agreste"},
+    {"id": 16, "eixo": "1. Educação", "nicho": "Estudantes do Médio", "texto": "Ampliar o Programa Ganhe o Mundo (PGM) para ofertar intercâmbio internacional nas modalidades Línguas e Práticas Esportivas.", "meta": "Intercâmbio internacional e bolsas de permanência"},
+    {"id": 17, "eixo": "1. Educação", "nicho": "Estudantes do Médio", "texto": "Criar o Programa Ganhe o Mundo Universitário com bolsas de intercâmbio para alunos da UPE.", "meta": "Intercâmbio superior internacional"},
+    {"id": 18, "eixo": "1. Educação", "nicho": "Estudantes Universitários", "texto": "Interiorizar cursos de graduação e pós-graduação da UPE fortalecendo as vocações regionais.", "meta": "Expansão de campi e cursos no interior"},
+    {"id": 19, "eixo": "1. Educação", "nicho": "Pernambuco Todo", "texto": "Implantar o Plano de Desenvolvimento Institucional e a infraestrutura física de novos campi da UPE.", "meta": "Novos campi e modernização institucional"},
+    {"id": 20, "eixo": "1. Educação", "nicho": "Estudantes Vulneráveis", "texto": "Consolidar as Casas de Estudantes Universitários da UPE garantindo suporte de permanência acadêmica.", "meta": "Moradia e acolhimento estudantil"},
+    {"id": 21, "eixo": "1. Educação", "nicho": "Alunos Especiais", "texto": "Ampliar salas de recursos multifuncionais para atendimento educacional especializado de estudantes com deficiência.", "meta": "Equipamentos e tecnologias assistivas"},
+    {"id": 22, "eixo": "1. Educação", "nicho": "Professores e Servidores", "texto": "Garantir a nomeação regular de professores concursados e manutenção do Piso Salarial Profissional Nacional.", "meta": "Piso Salarial Nacional e chamamento contínuo"},
+    {"id": 23, "eixo": "1. Educação", "nicho": "Professores da Rede", "texto": "Fortalecer programas de formação continuada e valorização pedagógica para docentes da rede pública.", "meta": "Capacitação pedagógica continuada"},
+    {"id": 24, "eixo": "1. Educação", "nicho": "Comunidades Rurais", "texto": "Eliminar o uso de veículos inadequados garantindo transporte escolar seguro e padronizado.", "meta": "Renovação e padronização da frota escolar"},
+    {"id": 25, "eixo": "1. Educação", "nicho": "Estudantes", "texto": "Concluir a construção e restauração de quadras poliesportivas cobertas em todas as escolas da rede estadual.", "meta": "Quadras poliesportivas estruturadas"},
+    {"id": 26, "eixo": "1. Educação", "nicho": "Atletas Escolares", "texto": "Fortalecer os Jogos Escolares de Pernambuco (JEPs) e expandir a concessão de bolsas financeiras a talentos esportivos.", "meta": "Bolsa Atleta Escolar e interiorização dos JEPs"},
+    {"id": 27, "eixo": "1. Educação", "nicho": "Jovens do Interior", "texto": "Implantar centros de iniciação esportiva integrados com as escolas de tempo integral.", "meta": "Núcleos esportivos regionais"},
+    {"id": 28, "eixo": "1. Educação", "nicho": "Comunidades Tradicionais", "texto": "Consolidar a matriz curricular própria para escolas indígenas e quilombolas com materiais específicos.", "meta": "Educação escolar intercultural e valorização"},
+    {"id": 29, "eixo": "1. Educação", "nicho": "Jovens e Adultos", "texto": "Modernizar as metodologias de ensino da Educação de Jovens e Adultos (EJA) integradas à profissionalização.", "meta": "Elevação da escolaridade adulta"},
+    {"id": 30, "eixo": "1. Educação", "nicho": "Estudantes Vulneráveis", "texto": "Articular a concessão do programa federal Pé-de-Meia para erradicar o abandono escolar no ensino médio.", "meta": "Pé-de-Meia integrado com rede estadual"},
+
+    {"id": 31, "eixo": "2. Ciência e Tecnologia", "nicho": "Pesquisadores / FACEPE", "texto": "Garantir o repasse constitucional e regular de recursos para a FACEPE fomentando a pesquisa aplicada.", "meta": "Financiamento continuado e bolsas de pesquisa"},
+    {"id": 32, "eixo": "2. Ciência e Tecnologia", "nicho": "Startups / Polo Digital", "texto": "Expandir os ecossistemas de inovação tecnológica do Porto Digital para polos regionais no interior.", "meta": "Interiorização de ambientes de inovação"},
+    {"id": 33, "eixo": "2. Ciência e Tecnologia", "nicho": "Jovens e Mulheres", "texto": "Criar programas de capacitação em tecnologia da informação e linguagem de programação para mulheres e jovens.", "meta": "Capacitação em TI e inclusão digital"},
+    {"id": 34, "eixo": "2. Ciência e Tecnologia", "nicho": "Cidadãos / Conectividade", "texto": "Implantar o Programa Conecta PE oferecendo pontos públicos de Wi-Fi gratuito em praças e terminais.", "meta": "Conectividade livre e pública"},
+    {"id": 35, "eixo": "2. Ciência e Tecnologia", "nicho": "Serviços Públicos", "texto": "Digitalizar 100% dos processos administrativos e atendimentos ao cidadão integrados ao portal PE Integrado.", "meta": "Governo digital e eliminação do papel"},
+    {"id": 36, "eixo": "2. Ciência e Tecnologia", "nicho": "Empreendedores / TI", "texto": "Fomentar linhas de crédito específicas para startups de base tecnológica através da AGE.", "meta": "Microcrédito e fomento a startups locais"},
+    {"id": 37, "eixo": "2. Ciência e Tecnologia", "nicho": "Setor Agropecuário", "texto": "Apoiar a aplicação de tecnologias Agrotech para monitoramento climático e convivência com o semiárido.", "meta": "Inovação tecnológica no semiárido"},
+    {"id": 38, "eixo": "2. Ciência e Tecnologia", "nicho": "Políticas Públicas", "texto": "Implantar soluções de Inteligência Artificial para gestão em saúde, segurança pública e arrecadação fiscal.", "meta": "Laboratório de IA na Gestão Pública"},
+    {"id": 39, "eixo": "2. Ciência e Tecnologia", "nicho": "Servidores Públicos", "texto": "Criar a Escola de Governo Digital para capacitação contínua em análise de dados e ferramentas modernas.", "meta": "Formação contínua de servidores em tecnologia"},
+    {"id": 40, "eixo": "2. Ciência e Tecnologia", "nicho": "Polo Farmacêutico", "texto": "Modernizar a estrutura fabril do LAFEPE para produção de medicamentos essenciais e novos princípios ativos.", "meta": "Autonomia e expansão fabril do LAFEPE"},
+    {"id": 41, "eixo": "2. Ciência e Tecnologia", "nicho": "Pesquisadores", "texto": "Conceder incentivos a patentes e transferência de tecnologia das universidades públicas para indústrias locais.", "meta": "Registro de patentes e fomento à inovação"},
+    {"id": 42, "eixo": "2. Ciência e Tecnologia", "nicho": "Alunos da Rede", "texto": "Equipar laboratórios de robótica e ciências em todas as escolas de referência e ETEs.", "meta": "Kits de robótica e bancadas científicas"},
+    {"id": 43, "eixo": "2. Ciência e Tecnologia", "nicho": "Gestão Hídrica", "texto": "Utilizar telemetria e sensores IoT para monitoramento em tempo real de redes e reservatórios da Compesa.", "meta": "Digitalização da malha de saneamento"},
+    {"id": 44, "eixo": "2. Ciência e Tecnologia", "nicho": "Sociedade / Dados", "texto": "Criar o Repositório de Dados Abertos de Pernambuco para transparência de indicadores econômicos e sociais.", "meta": "Plataforma de Dados Abertos estadual"},
+
+    {"id": 45, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "População em Geral", "texto": "Concluir e entregar os novos Grandes Hospitais Regionais descentralizados no interior.", "meta": "Novos Hospitais Gerais no Agreste e Sertão"},
+    {"id": 46, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Mulheres do Agreste", "texto": "Concluir as obras e colocar em funcionamento pleno o Hospital da Mulher do Agreste, em Caruaru.", "meta": "Hospital da Mulher do Agreste"},
+    {"id": 47, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "População do Sertão", "texto": "Construir e inaugurar o Hospital Geral de Serra Talhada para suprir a demanda cirúrgica do Sertão do Pajeú.", "meta": "Hospital Regional de Serra Talhada"},
+    {"id": 48, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "População do Agreste", "texto": "Construir e equipar o Hospital Regional Mestre Dominguinhos, em Garanhuns.", "meta": "Hospital Mestre Dominguinhos em Garanhuns"},
+    {"id": 49, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Região Metropolitana", "texto": "Requalificar completamente e modernizar os blocos cirúrgicos e UTIs do Hospital da Restauração (HR).", "meta": "Reforma estrutural histórica do HR"},
+    {"id": 50, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Região Metropolitana", "texto": "Requalificar a emergência e os leitos do Hospital Getúlio Vargas (HGV) e Hospital Otávio de Freitas (HOF).", "meta": "Modernização do HGV e HOF"},
+    {"id": 51, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Região Metropolitana", "texto": "Concluir obras de requalificação do Hospital Barão de Lucena com foco em obstetrícia e pediatria.", "meta": "Reforma do Barão de Lucena"},
+    {"id": 52, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Pacientes Cirúrgicos", "texto": "Consolidar o Programa Cuida PE com mutirões permanentes para zerar as filas de cirurgias eletivas e exames.", "meta": "Cuida PE permanente e redução drástica de filas"},
+    {"id": 53, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Pacientes do SUS", "texto": "Implantar o Sistema de Regulação Estadual Único e Digital com inteligência de dados para encaminhamento ágil.", "meta": "Regulação digital unificada e transparente"},
+    {"id": 54, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Comunidades do Interior", "texto": "Expandir o atendimento de Telessaúde e Telemedicina nas Unidades Básicas de Saúde municipais.", "meta": "Consultas virtuais com médicos especialistas"},
+    {"id": 55, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Pacientes de Especialidades", "texto": "Ampliar a capacidade diagnóstica das UPAEs garantindo novas carretas de exames móveis no interior.", "meta": "Carretas da Saúde e exames rápidos"},
+    {"id": 56, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Urgência e Emergência", "texto": "Renovar e expandir 100% da frota de ambulâncias do SAMU 192 e viaturas de suporte avançado (USA).", "meta": "Frota renovada do SAMU Metropolitano e Regional"},
+    {"id": 57, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Urgências do Sertão", "texto": "Implantar o Serviço de Resgate Aéreo Médico com helicópteros dedicados para socorro rápido no Sertão e Agreste.", "meta": "UTI Aérea estadual para trauma"},
+    {"id": 58, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Gestantes e Bebês", "texto": "Fortalecer a Rede Cegonha e a assistência materno-infantil garantindo leitos de UTI Neonatal em todas as macrorregiões.", "meta": "Leitos de UTI Neonatal regionalizados"},
+    {"id": 59, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Pacientes Oncológicos", "texto": "Regionalizar o tratamento contra o câncer com novas unidades de quimioterapia e radioterapia no interior.", "meta": "Oncologia regionalizada e menor deslocamento"},
+    {"id": 60, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Crianças Autistas e Famílias", "texto": "Criar Centros Especializados de Reabilitação e Atenção ao Autismo (Centros TEA) no Recife e polos do interior.", "meta": "Centros Regionais de Atendimento Multiprofissional TEA"},
+    {"id": 61, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Pessoas com Deficiência", "texto": "Ampliar o fornecimento de órteses, próteses e cadeiras de rodas personalizadas pelo SUS estadual.", "meta": "Agilização de próteses e materiais assistivos"},
+    {"id": 62, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Idosos e Crônicos", "texto": "Modernizar a logística da Farmácia de Pernambuco garantindo entrega domiciliar e agendamento digital.", "meta": "Farmácia Digital e entrega em domicílio de medicamentos"},
+    {"id": 63, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "População em Geral", "texto": "Manter índice de 100% de regularidade no estoque de medicamentos essenciais e de alto custo.", "meta": "Estoque regular e zero desabastecimento"},
+    {"id": 64, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Saúde Mental", "texto": "Fortalecer a Rede de Atenção Psicossocial (RAPS) ampliando cofinanciamento estadual para CAPS III 24 horas.", "meta": "Ampliação de CAPS 24h e leitos psiquiátricos em hospitais gerais"},
+    {"id": 65, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Profissionais de Enfermagem", "texto": "Garantir a manutenção rigorosa do Piso Salarial Nacional da Enfermagem para todos os servidores da rede própria.", "meta": "Cumprimento do piso e direitos da enfermagem"},
+    {"id": 66, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Médicos e Técnicos", "texto": "Realizar concursos públicos regulares para reposição de médicos especialistas, enfermeiros e fisioterapeutas.", "meta": "Concursos públicos e fixação médica no interior"},
+    {"id": 67, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Médicos Residentes", "texto": "Aumentar a oferta de bolsas de Residência Médica e Multiprofissional nos hospitais regionais de Pernambuco.", "meta": "Expansão de bolsas e formação regional"},
+    {"id": 68, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Doadores e Pacientes", "texto": "Modernizar as unidades do HEMOPE e descentralizar postos de coleta fixa de sangue nos polos regionais.", "meta": "Modernização da hemorrede e expansão de coletas"},
+    {"id": 69, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "População Cardiopata", "texto": "Criar a Linha de Cuidado do Infarto Agudo do Miocárdio com trombolíticos disponíveis em todas as UPAs.", "meta": "Protocolo rápido de resposta a infartos"},
+    {"id": 70, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Vítimas de AVC", "texto": "Implantar Centros de Atendimento e Referência a Pacientes de AVC nas quatro macrorregiões de saúde.", "meta": "Linha de resposta rápida para AVC"},
+    {"id": 71, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Pacientes Renais", "texto": "Ampliar a oferta de serviços públicos de hemodiálise reduzindo a distância de viagem para tratamento.", "meta": "Novas clínicas e leitos de diálise no interior"},
+    {"id": 72, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Saúde Bucal", "texto": "Implantar Centros de Especialidades Odontológicas (CEOs) regionais com procedimentos cirúrgicos e próteses.", "meta": "Saúde bucal e próteses gratuitas"},
+    {"id": 73, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Vigilância em Saúde", "texto": "Fortalecer a vigilância entomológica e controle de arboviroses com uso de tecnologias modernas e drones.", "meta": "Combate à dengue, zika e chikungunya"},
+    {"id": 74, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "População Hospitalizada", "texto": "Implantar o programa de humanização hospitalar com prontuário eletrônico unificado em toda a rede própria.", "meta": "Prontuário eletrônico e humanização do atendimento"},
+    {"id": 75, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Pessoas com Doenças Raras", "texto": "Estruturar centro estadual especializado para diagnóstico e tratamento multiprofissional de doenças raras.", "meta": "Centro de Referência em Doenças Raras"},
+    {"id": 76, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "Mulheres", "texto": "Garantir exames mamográficos digitais e ultrassonografias mamárias anuais descentralizadas pelo programa Amigo do Peito.", "meta": "Mamografia garantida para mulheres a partir de 40 anos"},
+    {"id": 77, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "População Masculina", "texto": "Implantar campanha permanente de prevenção ao câncer de próstata e saúde integral do homem.", "meta": "Exames preventivos e conscientização"},
+    {"id": 78, "eixo": "3. Saúde e Qualidade de Vida", "nicho": "População Idosa", "texto": "Criar ambulatórios de geriatria e programas de atenção à saúde do idoso nas policlínicas e UPAEs.", "meta": "Atenção médica geriátrica especializada"},
+
+    {"id": 79, "eixo": "4. Segurança Cidadã", "nicho": "Geral / População", "texto": "Consolidar o Programa Juntos Pela Segurança com metas territoriais e redução contínua de CVLI e CVP.", "meta": "Juntos Pela Segurança / Redução sistemática de homicídios"},
+    {"id": 80, "eixo": "4. Segurança Cidadã", "nicho": "Polícias Civil e Militar", "texto": "Concluir a contratação e formação de mais de 5.000 novos policiais militares, civis, bombeiros e científicos.", "meta": "Mais de 5.000 novos agentes de segurança empossados"},
+    {"id": 81, "eixo": "4. Segurança Cidadã", "nicho": "Servidores Policiais", "texto": "Reestruturar o plano de cargos e extinguir definitivamente as faixas salariais das forças de segurança estaduais.", "meta": "Fim definitivo das faixas salariais da PM e Bombeiros"},
+    {"id": 82, "eixo": "4. Segurança Cidadã", "nicho": "Policiamento Ostensivo", "texto": "Adquirir novas viaturas blindadas, armamentos modernos, coletes e fardamentos para toda a corporação.", "meta": "Modernização total dos equipamentos operacionais"},
+    {"id": 83, "eixo": "4. Segurança Cidadã", "nicho": "Sociedade / Tecnologia", "texto": "Implantar o Sistema Estadual de Muralha Digital com milhares de câmeras de reconhecimento e leitura de placas.", "meta": "Muralha Digital e videomonitoramento inteligente"},
+    {"id": 84, "eixo": "4. Segurança Cidadã", "nicho": "Mulheres Vítimas", "texto": "Expandir o funcionamento de 100% das DEAMs em regime de plantão 24 horas associadas à Patrulha Maria da Penha.", "meta": "DEAMs 24h e ampliação da Patrulha Maria da Penha"},
+    {"id": 85, "eixo": "4. Segurança Cidadã", "nicho": "Mulheres Sob Medida Protetiva", "texto": "Fornecer dispositivos de segurança com botão do pânico integrado à central de emergência para vítimas de violência doméstica.", "meta": "Botão do pânico com geolocalização"},
+    {"id": 86, "eixo": "4. Segurança Cidadã", "nicho": "População do Interior", "texto": "Fortalecer e ampliar os Batalhões Especializados da PM (BIESP e BEPI) no combate ao crime organizado e novo cangaço.", "meta": "Reforço operacional do BIESP e BEPI no Sertão e Agreste"},
+    {"id": 87, "eixo": "4. Segurança Cidadã", "nicho": "Polícia Civil / Investigação", "texto": "Modernizar delegacias e aumentar os recursos para investigação financeira e combate à lavagem de capitais pelo DRACO.", "meta": "Desarticulação patrimonial de organizações criminosas"},
+    {"id": 88, "eixo": "4. Segurança Cidadã", "nicho": "Polícia Científica", "texto": "Construir novas unidades do Instituto de Medicina Legal (IML) e Instituto de Criminalística (IC) no interior.", "meta": "Novos polos do IML e IC em cidades polos"},
+    {"id": 89, "eixo": "4. Segurança Cidadã", "nicho": "Bombeiros Militares", "texto": "Implantar novas seções de bombeiros em municípios estratégicos do interior e adquirir caminhões de combate a incêndio.", "meta": "Interiorização do Corpo de Bombeiros"},
+    {"id": 90, "eixo": "4. Segurança Cidadã", "nicho": "Sistema Prisional", "texto": "Construir novas vagas no sistema prisional para superar a superlotação e ampliar oficinas de trabalho e ressocialização.", "meta": "Abertura de novas vagas e redução do déficit prisional"},
+    {"id": 91, "eixo": "4. Segurança Cidadã", "nicho": "Comunidades", "texto": "Implantar projetos sociais de prevenção à violência com esporte, cultura e cidadania para jovens em áreas de risco.", "meta": "Prevenção social da violência nos bairros vulneráveis"},
+
+    {"id": 92, "eixo": "5. Inclusão Social", "nicho": "Mães Chefes de Família", "texto": "Manter e expandir o Programa Mães de Pernambuco garantindo auxílio mensal contínuo para mulheres em vulnerabilidade extrema.", "meta": "Mães de Pernambuco: auxílio mensal direto para mais de 100 mil famílias"},
+    {"id": 93, "eixo": "5. Inclusão Social", "nicho": "Pessoas em Pobreza Extrema", "texto": "Fortalecer a rede estadual do Programa Bom Prato Pernambucano garantindo cozinhas comunitárias e refeições diárias.", "meta": "Expansão de Cozinhas Comunitárias e refeições gratuitas"},
+    {"id": 94, "eixo": "5. Inclusão Social", "nicho": "População em Situação de Rua", "texto": "Implantar centros estaduais integrados de acolhimento com higiene, alimentação, emissão de documentos e aluguel social.", "meta": "Acolhimento humanizado e moradia assistida"},
+    {"id": 95, "eixo": "5. Inclusão Social", "nicho": "Pessoas com Deficiência", "texto": "Ampliar o Programa PE Conduz com vans adaptadas para transporte porta a porta de pessoas com deficiência severa.", "meta": "Frota ampliada do PE Conduz no interior"},
+    {"id": 96, "eixo": "5. Inclusão Social", "nicho": "População Idosa", "texto": "Apoiar a implantação de Centros de Convivência do Idoso e programas de combate ao isolamento social.", "meta": "Centros de Convivência da Pessoa Idosa"},
+    {"id": 97, "eixo": "5. Inclusão Social", "nicho": "Pessoas sem Documento", "texto": "Realizar mutirões permanentes do Balcão de Direitos para emissão gratuita de RG, certidões e regularização civil.", "meta": "Cidadania e documentação civil gratuita para todos"},
+
+    {"id": 98, "eixo": "6. Políticas para Mulheres", "nicho": "Mulheres Empreendedoras", "texto": "Expandir o programa Bora Empreender Mulher com concessão de microcrédito orientado e capacitação técnica.", "meta": "Microcrédito com taxas subsidiadas para negócios femininos"},
+    {"id": 99, "eixo": "6. Políticas para Mulheres", "nicho": "Mulheres Vítimas", "texto": "Fortalecer a rede de Casas Abrigo Regionais com atendimento psicológico, jurídico e proteção integral.", "meta": "Novas Casas Abrigo para acolhimento de urgência"},
+    {"id": 100, "eixo": "6. Políticas para Mulheres", "nicho": "Mulheres Trabalhadoras", "texto": "Ofertar cursos de qualificação profissional em áreas técnicas tradicionalmente masculinas (construção civil, TI e mecânica).", "meta": "Cursos técnicos e inserção no mercado de trabalho"},
+    {"id": 101, "eixo": "6. Políticas para Mulheres", "nicho": "Mulheres do Campo", "texto": "Apoiar cooperativas de mulheres rurais com fornecimento de equipamentos agrícolas e acesso a feiras.", "meta": "Autonomia produtiva para mulheres agricultoras"},
+    {"id": 102, "eixo": "6. Políticas para Mulheres", "nicho": "Mulheres em Geral", "texto": "Instituir o Programa Dignidade Menstrual garantindo distribuição de absorventes em escolas públicas e unidades do SUS.", "meta": "Distribuição gratuita de itens de higiene menstrual"},
+    {"id": 103, "eixo": "6. Políticas para Mulheres", "nicho": "Gestão Estadual", "texto": "Garantir a paridade de gênero nos cargos de direção e liderança da administração pública estadual.", "meta": "Mulheres na liderança do Governo de Pernambuco"},
+    {"id": 104, "eixo": "6. Políticas para Mulheres", "nicho": "Mulheres Líderes", "texto": "Fomentar os Conselhos Municipais dos Direitos da Mulher em todas as 184 cidades de Pernambuco.", "meta": "Fortalecimento do controle social feminino"},
+
+    {"id": 105, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Motoristas e Usuários de Rodovias", "texto": "Executar e concluir o Programa PE na Estrada com recuperação, pavimentação e duplicação de mais de 3.000 km de rodovias estaduais.", "meta": "PE na Estrada: mais de R$ 5 bilhões investidos em rodovias"},
+    {"id": 106, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Região Metropolitana / Logística", "texto": "Concluir as obras do Lote 1 e Lote 2 do Arco Metropolitano ligando o Porto de Suape à BR-101 e BR-408.", "meta": "Arco Metropolitano concluído"},
+    {"id": 107, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Litoral Sul / Turistas", "texto": "Concluir a duplicação e restauração total da PE-060 garantindo segurança e fluidez no Litoral Sul.", "meta": "Duplicação e recuperação da PE-060"},
+    {"id": 108, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Litoral Norte", "texto": "Concluir a duplicação e restauração da PE-015 e PE-001 fortalecendo o turismo e a economia da Zona da Mata Norte.", "meta": "Requalificação das rodovias do Litoral Norte"},
+    {"id": 109, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Polo Têxtil do Agreste", "texto": "Concluir as obras de duplicação e duplicações complementares da BR-104 e PE-160 ligando Santa Cruz e Caruaru.", "meta": "Duplicação de acessos no Polo de Confecções"},
+    {"id": 110, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Sertão do Araripe", "texto": "Restauração estrutural e pavimentação das rodovias do Polo Gesseiro no Sertão do Araripe (PE-545 e PE-630).", "meta": "Recuperação de rodovias da rota do gesso"},
+    {"id": 111, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Passageiros de Ônibus", "texto": "Concluir a requalificação e climatização progressiva de 100% da frota do Sistema Estrutural Integrado (SEI) da RMR.", "meta": "Ônibus com ar-condicionado e acessibilidade"},
+    {"id": 112, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Passageiros do Metrô", "texto": "Articular com o Governo Federal a modernização ou concessão com investimentos bilionários no Metrô do Recife.", "meta": "Recuperação e modernização integral da rede Metrorec"},
+    {"id": 113, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Usuários do Transporte Metropolitano", "texto": "Consolidar a Tarifa Única Metropolitana e integrar os modais de ônibus e barcos na RMR.", "meta": "Bilhete Único e justiça tarifária metropolitana"},
+    {"id": 114, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Ciclistas", "texto": "Construir e interligar mais de 120 km de ciclovias protegidas nas margens de rodovias estaduais e centros urbanos.", "meta": "Rede Cicloviária Estadual estruturada"},
+    {"id": 115, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Aviação Regional", "texto": "Modernizar e ampliar os aeroportos regionais de Caruaru, Serra Talhada, Garanhuns e Araripina com voos comerciais regulares.", "meta": "Aeroportos regionais ampliados e homologados"},
+    {"id": 116, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Porto de Suape", "texto": "Concluir as obras de dragagem do canal externo de Suape e atração do novo terminal de contêineres e minério.", "meta": "Porto de Suape líder em movimentação de cargas"},
+    {"id": 117, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Terminais de Passageiros", "texto": "Requalificar os 26 Terminais Integrados de Passageiros da RMR com banheiros modernos, segurança armada e Wi-Fi.", "meta": "Reforma geral de todos os TIs da Região Metropolitana"},
+    {"id": 118, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Estradas Vicinais", "texto": "Implantar o programa estadual de conservação e pavimentação primária em estradas vicinais para escoamento agrícola.", "meta": "Manutenção continuada de estradas de terra no campo"},
+    {"id": 119, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Pontes e Viadutos", "texto": "Executar obras de recuperação estrutural de pontes históricas e novos viadutos nos principais entroncamentos viários de PE.", "meta": "Segurança e manutenção de pontes estaduais"},
+    {"id": 120, "eixo": "7. Infraestrutura e Mobilidade", "nicho": "Iluminação de Rodovias", "texto": "Implantar iluminação pública com lâmpadas LED e energia solar nas travessias urbanas das rodovias estaduais.", "meta": "LED e segurança nas travessias de PE"},
+
+    {"id": 121, "eixo": "8. Indústria e Comércio", "nicho": "Indústrias e Investidores", "texto": "Atrair novos investimentos industriais através da consolidação do Polo Automotivo de Goiana e cadeia de fornecedores.", "meta": "Expansão de empregos formais na indústria"},
+    {"id": 122, "eixo": "8. Indústria e Comércio", "nicho": "Polo de Confecções", "texto": "Criar centros de capacitação técnica, linhas de financiamento pelo AGE e apoio logístico para exportação de roupas do Agreste.", "meta": "Modernização e competitividade do Polo Têxtil"},
+    {"id": 123, "eixo": "8. Indústria e Comércio", "nicho": "Pólo Farmacoquímico", "texto": "Consolidar o Polo Farmacoquímico de Goiana atraindo laboratórios privados e centros de pesquisa e desenvolvimento.", "meta": "Hub nacional de produção farmacêutica"},
+    {"id": 124, "eixo": "8. Indústria e Comércio", "nicho": "Micro e Pequenas Empresas", "texto": "Desburocratizar a abertura de negócios reduzindo prazos da JUCEPE e simplificando recolhimento tributário do ICMS.", "meta": "Abertura de empresas simplificada e balcão único"},
+    {"id": 125, "eixo": "8. Indústria e Comércio", "nicho": "Setor Comercial", "texto": "Incentivar as feiras de negócios locais (Fenearte, Agreste Fashion, Fenagrishow) com fomento estatal e infraestrutura.", "meta": "Apoio a feiras e geração de negócios"},
+    {"id": 126, "eixo": "8. Indústria e Comércio", "nicho": "Transição Energética", "texto": "Implantar incentivos para a cadeia de Hidrogênio Verde (H2V) e novas indústrias de energia solar e eólica no estado.", "meta": "Hub de Hidrogênio Verde em Suape"},
+
+    {"id": 127, "eixo": "9. Desenvolvimento Agrário", "nicho": "Agricultores Familiares", "texto": "Garantir apoio técnico rural e distribuição gratuita de sementes e mudas selecionadas pelo IPA.", "meta": "Assistência técnica presencial aos pequenos produtores"},
+    {"id": 128, "eixo": "9. Desenvolvimento Agrário", "nicho": "Produtores do Sertão", "texto": "Apoiar a infraestrutura de irrigação no Vale do São Francisco para fortalecimento da exportação de manga e uva.", "meta": "Fruticultura irrigada de alta produtividade"},
+    {"id": 129, "eixo": "9. Desenvolvimento Agrário", "nicho": "Bacia Leiteira do Agreste", "texto": "Consolidar o Programa de Fortalecimento da Bacia Leiteira com aquisição estatal de leite e apoio veterinário.", "meta": "Compra institucional e incentivo aos produtores de leite"},
+    {"id": 130, "eixo": "9. Desenvolvimento Agrário", "nicho": "Pequenos Produtores", "texto": "Acelerar a entrega de títulos definitivos de propriedade rural através do Instituto de Terras de Pernambuco (Iterpe).", "meta": "Regularização fundiária no campo"},
+    {"id": 131, "eixo": "9. Desenvolvimento Agrário", "nicho": "Pescadores e Aquicultores", "texto": "Fomentar a piscicultura em tanques-rede nos reservatórios do Rio São Francisco e lagos estaduais.", "meta": "Produção aquícola sustentável"},
+    {"id": 132, "eixo": "9. Desenvolvimento Agrário", "nicho": "Convivência com a Seca", "texto": "Construir e restaurar pequenas barragens, barreiros e poços artesianos nas comunidades rurais isoladas.", "meta": "Segurança hídrica rural"},
+
+    {"id": 133, "eixo": "10. Turismo", "nicho": "Turismo Cultural e Sol & Mar", "texto": "Promover campanhas internacionais de divulgação turística de Porto de Galinhas, Noronha, Olinda e Sertão.", "meta": "Aumento do fluxo de turistas e novos voos"},
+    {"id": 134, "eixo": "10. Turismo", "nicho": "Ciclos Festivos", "texto": "Garantir fomento antecipado para os ciclos do Carnaval, São João e Natal em todos os polos turísticos estaduais.", "meta": "Investimento estruturante nas festas populares"},
+    {"id": 135, "eixo": "10. Turismo", "nicho": "Turismo do Interior", "texto": "Estruturar as Rotas do Frio, do Vinho, do Cangaço e do Queijo no Agreste e Sertão.", "meta": "Interiorização do turismo e geração de emprego"},
+    {"id": 136, "eixo": "10. Turismo", "nicho": "Centro de Convenções", "texto": "Concluir a modernização do Centro de Convenções de Pernambuco e apoiar a atração de congressos globais.", "meta": "Turismo de negócios e eventos corporativos"},
+    {"id": 137, "eixo": "10. Turismo", "nicho": "Trabalhadores do Turismo", "texto": "Ofertar cursos de capacitação profissional em idiomas, hotelaria e gastronomia para jovens e trabalhadores do setor.", "meta": "Qualificação profissional do trade turístico"},
+
+    {"id": 138, "eixo": "11. Cultura e Economia Criativa", "nicho": "Artistas e Produtores", "texto": "Garantir o repasse integral e pagamento ágil dos editais do Funcultura com descentralização regional.", "meta": "Desburocratização e cota para o interior no Funcultura"},
+    {"id": 139, "eixo": "11. Cultura e Economia Criativa", "nicho": "Patrimônio Vivo", "texto": "Reajustar os valores das bolsas e ampliar o número de Mestres e Grupos do Patrimônio Vivo de Pernambuco.", "meta": "Valorização dos Mestres da Cultura Popular"},
+    {"id": 140, "eixo": "11. Cultura e Economia Criativa", "nicho": "Espaços Culturais", "texto": "Concluir as obras de restauração do Cinema São Luiz, Teatro de Santa Isabel e Museu do Estado de Pernambuco.", "meta": "Patrimônio histórico e cultural preservado"},
+    {"id": 141, "eixo": "11. Cultura e Economia Criativa", "nicho": "Audiovisual Pernambucano", "texto": "Lançar editais anuais permanentes para produção de curtas, longas-metragens e séries no polo de cinema local.", "meta": "Fortalecimento do Polo Audiovisual de PE"},
+    {"id": 142, "eixo": "11. Cultura e Economia Criativa", "nicho": "Artesãos Locais", "texto": "Consolidar a Fenearte como a maior feira de artesanato da América Latina com infraestrutura ampliada.", "meta": "Comercialização direta para artesãos pernambucanos"},
+
+    {"id": 143, "eixo": "12. Abastecimento e Saneamento", "nicho": "População sob Rodízio", "texto": "Concluir e expandir o Programa Águas de Pernambuco para erradicar o rodízio severo de água em todo o estado.", "meta": "Águas de Pernambuco: R$ 6 bilhões investidos em adutoras e saneamento"},
+    {"id": 144, "eixo": "14. Habitação e Periferias", "nicho": "Famílias de Morros", "texto": "Executar obras de contenção de encostas, drenagem e geomantas nas áreas críticas de risco da RMR e interior.", "meta": "Prevenção de deslizamentos e proteção nos morros"},
+    {"id": 145, "eixo": "12. Abastecimento e Saneamento", "nicho": "Agreste e Sertão", "texto": "Concluir as obras da Adutora do Agreste e Adutora do Alto Capibaribe garantindo água da Transposição.", "meta": "Segurança hídrica definitiva para o Agreste"},
+    {"id": 146, "eixo": "12. Abastecimento e Saneamento", "nicho": "Saneamento Básico", "texto": "Ampliar a cobertura de coleta e tratamento de esgoto para atingir as metas do Marco Legal do Saneamento.", "meta": "Universalização do esgotamento sanitário em parceria público-privada"},
+    {"id": 147, "eixo": "12. Abastecimento e Saneamento", "nicho": "Consumidores da Compesa", "texto": "Modernizar a rede da Compesa reduzindo vazamentos e garantindo justiça na tarifa social para famílias carentes.", "meta": "Eficiência hídrica e ampliação da Tarifa Social"},
+
+    {"id": 148, "eixo": "13. Clima e Meio Ambiente", "nicho": "Recursos Naturais", "texto": "Implantar o Plano Estadual de Descarbonização e neutralidade de emissões de carbono até 2050.", "meta": "Pernambuco carbono zero e sustentável"},
+    {"id": 149, "eixo": "13. Clima e Meio Ambiente", "nicho": "Florestas e Biodiversidade", "texto": "Restaurar e reflorestar bacias hidrográficas com plantio de 10 milhões de mudas nativas da Mata Atlântica e Caatinga.", "meta": "Reflorestamento de matas ciliares e nascentes"},
+    {"id": 150, "eixo": "13. Clima e Meio Ambiente", "nicho": "Cidades / Resíduos", "texto": "Apoiar os municípios na transição sustentável e apoio financeiro a cooperativas de catadores de materiais recicláveis.", "meta": "Incentivo à reciclagem e erradicação de lixões"},
+    {"id": 151, "eixo": "13. Clima e Meio Ambiente", "nicho": "Causa Animal", "texto": "Construir novos Hospitais Veterinários Públicos Regionais e expandir o Programa Castramóvel no interior.", "meta": "Castração e atendimento veterinário público regional"},
+    {"id": 152, "eixo": "13. Clima e Meio Ambiente", "nicho": "Defesa Civil / Prevenção", "texto": "Modernizar as salas de monitoramento meteorológico da APAC com alertas antecipados de chuvas extremas.", "meta": "Tecnologia e prevenção de desastres naturais"},
+    {"id": 153, "eixo": "13. Clima e Meio Ambiente", "nicho": "Parques Estaduais", "texto": "Requalificar os Parques Urbanos Estaduais (Dois Irmãos, Santana, Jaqueira) garantindo lazer e preservação.", "meta": "Modernização dos parques estaduais"},
+
+    {"id": 154, "eixo": "14. Habitação e Periferias", "nicho": "Famílias de Baixa Renda", "texto": "Executar o Programa Morar Bem Pernambuco entregando mais de 50.000 unidades habitacionais populares.", "meta": "Morar Bem PE: 50.000 novas moradias populares"},
+    {"id": 155, "eixo": "14. Habitação e Periferias", "nicho": "Comunidades Urbanas", "texto": "Realizar obras de urbanização integrada e pavimentação de ruas nas comunidades vulneráveis das grandes cidades.", "meta": "Infraestrutura urbana básica nas periferias"},
+    {"id": 156, "eixo": "14. Habitação e Periferias", "nicho": "Famílias Posseiras", "texto": "Conceder títulos de Regularização Fundiária Urbana (REURB) gratuita para 30.000 famílias nos bairros consolidados.", "meta": "30 mil escrituras públicas de posse registradas"},
+    {"id": 157, "eixo": "14. Habitação e Periferias", "nicho": "Casas Precárias", "texto": "Implantar o programa de melhorias habitacionais com reformas de banheiros, reboco e telhados para lares vulneráveis.", "meta": "Reformas e melhorias habitacionais gratuitas"},
+    {"id": 158, "eixo": "14. Habitação e Periferias", "nicho": "Palafitas", "texto": "Erradicar áreas de palafitas urbanas reassentando famílias em conjuntos com saneamento e drenagem.", "meta": "Habitação digna para moradores de áreas alagadas"},
+    {"id": 159, "eixo": "14. Habitação e Periferias", "nicho": "Desabrigados por Chuvas", "texto": "Garantir o pagamento pontual do auxílio moradia e prioridade em novos habitacionais para vítimas de enchentes.", "meta": "Amparo habitacional imediato"},
+    {"id": 160, "eixo": "14. Habitação e Periferias", "nicho": "Moradias no Interior", "texto": "Subsidiar parcelas e entrada do programa Minha Casa Minha Vida para famílias de baixa renda do interior.", "meta": "Submédio habitacional estadual"},
+
+    {"id": 161, "eixo": "15. Fernando de Noronha", "nicho": "Moradores do Arquipélago", "texto": "Construir e entregar o novo Hospital São Lucas com UTI móvel e atendimento cirúrgico especializado em Noronha.", "meta": "Novo Hospital São Lucas em Fernando de Noronha"},
+    {"id": 162, "eixo": "15. Fernando de Noronha", "nicho": "Ilhéus / Moradia", "texto": "Executar o plano de habitação de interesse social e saneamento ecológico sustentável no distrito.", "meta": "Habitação e saneamento para moradores nativos"},
+    {"id": 163, "eixo": "15. Fernando de Noronha", "nicho": "Preservação e Sustentabilidade", "texto": "Modernizar a usina solar e matriz energética do arquipélago reduzindo a queima de óleo diesel.", "meta": "Transição para energia 100% limpa em Noronha"},
+
+    {"id": 164, "eixo": "16. Gestão e Transparência", "nicho": "Sociedade em Geral", "texto": "Manter a nota de Capacidade de Pagamento (Capag) no patamar de excelência para captar investimentos internacionais.", "meta": "Equilíbrio fiscal e nota máxima Capag"},
+    {"id": 165, "eixo": "16. Gestão e Transparência", "nicho": "Cidadãos / Fiscalização", "texto": "Modernizar o Portal da Transparência de Pernambuco com dados abertos e consultas simplificadas de gastos públicos.", "meta": "Transparência pública no topo dos rankings nacionais"},
+    {"id": 166, "eixo": "16. Gestão e Transparência", "nicho": "Servidores Estaduais", "texto": "Garantir a mesa permanente de negociação sindical e cumprimento das datas-bases salariais.", "meta": "Diálogo e valorização do funcionalismo público"},
+    {"id": 167, "eixo": "16. Gestão e Transparência", "nicho": "Prefeituras Municipais", "texto": "Fortalecer as parcerias interfederativas e transferências voluntárias diretas para obras nos municípios.", "meta": "Pacto federativo estadual com os 184 municípios"},
+    {"id": 168, "eixo": "16. Gestão e Transparência", "nicho": "Compras Públicas", "texto": "Implantar processos de licitação 100% eletrônicos com exigência de integridade e compliance anticorrupção.", "meta": "Eficiência e integridade nos contratos de estado"}
+  ];
+
   const KEYWORDS_JOAO = [
     { word: 'Garantia de Direitos', tagClass: 'tag-hero' },
     { word: 'Educação', tagClass: 'tag-hero' },
@@ -988,6 +1166,18 @@
     { word: 'Comunidades Tradicionais', tagClass: '' }
   ];
 
+  const KEYWORDS_RAQUEL = [
+    { word: 'Saúde e Qualidade de Vida', tagClass: 'tag-hero' },
+    { word: 'Educação', tagClass: 'tag-hero' },
+    { word: 'Infraestrutura e Mobilidade', tagClass: 'tag-hero' },
+    { word: 'Mães de Pernambuco', tagClass: '' },
+    { word: 'Águas de Pernambuco', tagClass: '' },
+    { word: 'PE na Estrada', tagClass: '' },
+    { word: 'Arco Metropolitano', tagClass: '' },
+    { word: 'Creches', tagClass: '' },
+    { word: 'Ciência e Tecnologia', tagClass: '' }
+  ];
+
   let currentCandidate = 'joao';
   let currentTab = 'overview';
   let filterEixo = 'TODOS';
@@ -996,8 +1186,9 @@
   let searchDebounceTimer = null;
 
   function getCurrentDataset() {
-    if (currentCandidate === 'joao') return DATA_JOAO;
     if (currentCandidate === 'ivan') return DATA_IVAN;
+    if (currentCandidate === 'joao') return DATA_JOAO;
+    if (currentCandidate === 'raquel') return DATA_RAQUEL;
     return [];
   }
 
@@ -1066,21 +1257,6 @@
     const footerCount = document.getElementById('footer-count');
     const tabPropostasBtn = document.getElementById('tab-propostas');
 
-    if (currentCandidate === 'raquel') {
-      container.innerHTML = `
-        <div class="empty-state">
-          <h3>Plano de Governo em Atualização</h3>
-          <p>A pré-candidatura de <strong>Raquel Lyra</strong> ainda não disponibilizou o conjunto exaustivo de propostas no formato de dados abertos para este painel.</p>
-          <div class="notice-box">
-            <strong>Critério Editorial Jamildo.com:</strong> O portal acompanha diariamente os registros formais na Justiça Eleitoral. Assim que os dados forem consolidados, serão cadastrados imediatamente.
-          </div>
-        </div>
-      `;
-      footerCount.textContent = 'Exibindo 0 propostas';
-      tabPropostasBtn.textContent = '🔍 Todas as Propostas (0)';
-      return;
-    }
-
     const data = getCurrentDataset();
     footerCount.textContent = `Total carregado: ${data.length} propostas oficiais`;
     tabPropostasBtn.textContent = `🔍 Todas as Propostas (${data.length})`;
@@ -1091,7 +1267,11 @@
         counts[item.eixo] = (counts[item.eixo] || 0) + 1;
       });
 
-      const keywords = currentCandidate === 'joao' ? KEYWORDS_JOAO : KEYWORDS_IVAN;
+      let keywords = [];
+      if (currentCandidate === 'ivan') keywords = KEYWORDS_IVAN;
+      else if (currentCandidate === 'joao') keywords = KEYWORDS_JOAO;
+      else if (currentCandidate === 'raquel') keywords = KEYWORDS_RAQUEL;
+
       let cloudHtml = keywords.map(k => 
         `<span class="cloud-tag ${k.tagClass}" onclick="filterByKeyword('${k.word}')">${k.word}</span>`
       ).join('');
@@ -1099,8 +1279,10 @@
       let analysisText = "";
       if (currentCandidate === 'joao') {
         analysisText = `No plano completo de <strong>João Campos</strong> (178 propostas divididas em 15 eixos), os maiores volumes de compromissos estão concentrados em <strong>Garantia de Direitos (34 propostas)</strong>, <strong>Educação e Esportes (27)</strong>, <strong>Desenvolvimento Social (21)</strong>, <strong>Saúde (20)</strong> e <strong>Segurança Cidadã (16)</strong>.`;
-      } else {
+      } else if (currentCandidate === 'ivan') {
         analysisText = `No plano completo de <strong>Ivan Moraes</strong> (254 propostas divididas em 15 eixos), os maiores destaques estão em <strong>Segurança Pública (41 propostas)</strong>, <strong>Políticas para Mulheres (30)</strong>, <strong>Saúde e Políticas de Drogas (24)</strong>, <strong>Criança e Adolescente (24)</strong> e <strong>Economia (20)</strong>.`;
+      } else if (currentCandidate === 'raquel') {
+        analysisText = `No plano completo de <strong>Raquel Lyra</strong> (168 propostas distribuídas em 16 eixos), as maiores concentrações de compromissos estão em <strong>Saúde e Qualidade de Vida (34 propostas)</strong>, <strong>Educação (30)</strong>, <strong>Infraestrutura e Mobilidade (16)</strong>, <strong>Ciência e Tecnologia (14)</strong> e <strong>Segurança Cidadã (13)</strong>.`;
       }
 
       container.innerHTML = `
@@ -1121,7 +1303,7 @@
         <div class="section-box">
           <div class="box-header">
             <span>📊 Distribuição de Propostas por Área</span>
-            <span style="font-size:8.5px; color:#64748b; font-weight:normal;">Gráfico (15 Eixos)</span>
+            <span style="font-size:8.5px; color:#64748b; font-weight:normal;">Gráfico (${Object.keys(counts).length} Eixos)</span>
           </div>
           <div class="chart-box">
             <canvas id="propostasChart"></canvas>
@@ -1147,7 +1329,8 @@
               backgroundColor: [
                 '#024796', '#f83d03', '#0284c7', '#f97316', '#0d9488',
                 '#8b5cf6', '#ec4899', '#10b981', '#6366f1', '#14b8a6',
-                '#f43f5e', '#a855f7', '#06b6d4', '#84cc16', '#eab308'
+                '#f43f5e', '#a855f7', '#06b6d4', '#84cc16', '#eab308',
+                '#64748b'
               ],
               borderRadius: 4,
               borderSkipped: false
